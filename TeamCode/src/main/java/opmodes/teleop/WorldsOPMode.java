@@ -367,28 +367,28 @@ public class WorldsOPMode extends OpMode {
                         if (basket && !pBasket && autoTime.milliseconds() > 100) {
                             outake.pivotTarget = Values.OUTPIVOT_HBASK;
                             outake.slidesTarget = Values.OUTSLIDES_MAX;
+                            setAutoStep_d(10001);
+                        }
+                        break;
+                    case 10001:
+                        if (basket && !pBasket && autoTime.milliseconds() > 100) {
+                            outake.rotateTarget = Values.OUTROTATE_HBASK;
                             setAutoStep_d(2);
                         }
                         break;
                     case 2:
                         if (basket && !pBasket && autoTime.milliseconds() > 100) {
-                            outake.rotateTarget = Values.OUTROTATE_HBASK;
+                            outake.clawTarget = Values.CLAW_OPENED;
                             setAutoStep_d(3);
                         }
                         break;
                     case 3:
-                        if (basket && !pBasket && autoTime.milliseconds() > 100) {
-                            outake.clawTarget = Values.CLAW_OPENED;
-                            setAutoStep_d(4);
-                        }
-                        break;
-                    case 4:
                         if (basket && !pBasket) {
                             outake.pivotTarget = Values.OUTPIVOT_HBASK + 0.1;
-                            setAutoStep_d(40001);
+                            setAutoStep_d(30001);
                         }
                         break;
-                    case 40001:
+                    case 30001:
                         if(autoTime.milliseconds() > 300) {
                             setAutoStep_d(0);
                             autoProcess_d = "home";
