@@ -11,18 +11,29 @@ import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
+import components.HardwareInitializer;
+import components.OuttakeControl;
+import components.Values;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
-@Autonomous(name = "Actual", group = "Specimen_5")
+@Autonomous(name = "Specimen_5", group = "Auto")
 public class Specimen_5 extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
+    private HardwareInitializer hardwareInitializer;
+
+    private OuttakeControl outake;
+    DcMotor VSLIDES_L, VSLIDES_R;
+    Servo OUTPIVOT_L, OUTPIVOT_R, OUTROTATE, OUTWRIST, OUTCLAW, INTURRET, INPIVOT, INROTATE, INWRIST, INCLAW, HSLIDES_F, HSLIDES_B;
 
     /** This is the variable where we store the state of our auto.
      * It is used by the pathUpdate method. */
-    private int pathState;
+    private int pathState, actionState;
+    private String actionProcess = "none";
 
     /* Create and Define Poses + Paths
      * Poses are built with three constructors: x, y, and heading (in Radians).
@@ -34,28 +45,28 @@ public class Specimen_5 extends OpMode {
      * Lets assume the Robot is facing the human player and we want to score in the bucket */
 
     /** Start Pose of our robot */
-    private final double heading = 315;
-    private final Pose startPose = new Pose(0, 65.5, Math.toRadians(315));
-    private final Pose score1Pose = new Pose(28, 84, Math.toRadians(315));
-    private final Pose move1Pose = new Pose(40, 43, Math.toRadians(315));
-    private final Pose move1Ctrl1Pose = new Pose(14, 44, Math.toRadians(315));
-    private final Pose push1_1Pose = new Pose(60, 40, Math.toRadians(315));
-    private final Pose push1_1Ctrl1Pose = new Pose(14, 44, Math.toRadians(315));
-    private final Pose push1_2Pose = new Pose(5, 34, Math.toRadians(315));
-    private final Pose push2_1Pose = new Pose(50, 26, Math.toRadians(315));
-    private final Pose push2_1Ctrl1Pose = new Pose(55, 36, Math.toRadians(315));
-    private final Pose push2_2Pose = new Pose(5, 26, Math.toRadians(315));
-    private final Pose push3_1Pose = new Pose(50, 16, Math.toRadians(315));
-    private final Pose push3_1Ctrl1Pose = new Pose(60, 22, Math.toRadians(315));
-    private final Pose push3_2Pose = new Pose(5, 16, Math.toRadians(315));
+    private final double heading = 0;
+    private final Pose startPose = new Pose(9, 64, Math.toRadians(0));
+    private final Pose score1Pose = new Pose(44, 76, Math.toRadians(0));
+    private final Pose move1Pose = new Pose(39.47, 35.87, Math.toRadians(0));
+    private final Pose move1Ctrl1Pose = new Pose(30.42, 41.60, Math.toRadians(0));
+    private final Pose push1_1Pose = new Pose(67, 24, Math.toRadians(0));
+    private final Pose push1_1Ctrl1Pose = new Pose(66.49, 32.18, Math.toRadians(0));
+    private final Pose push1_2Pose = new Pose(33, 24, Math.toRadians(0));
+    private final Pose push2_1Pose = new Pose(67, 10.5, Math.toRadians(0));
+    private final Pose push2_1Ctrl1Pose = new Pose(68.27, 28.80, Math.toRadians(0));
+    private final Pose push2_2Pose = new Pose(30, 10.5, Math.toRadians(0));
+    private final Pose push3_1Pose = new Pose(67, 2.5, Math.toRadians(0));
+    private final Pose push3_1Ctrl1Pose = new Pose(68.27, 13.5, Math.toRadians(0));
+    private final Pose push3_2Pose = new Pose(30, 2.5, Math.toRadians(0));
 
     // Grab pose can be reused
-    private final Pose grabPose = new Pose(1, 33, Math.toRadians(315));
-    private final Pose grabCtrl1Pose = new Pose(8, 34, Math.toRadians(315));
-    private final Pose score2Pose = new Pose(28, 82, Math.toRadians(315));
-    private final Pose score3Pose = new Pose(28, 80, Math.toRadians(315));
-    private final Pose score4Pose = new Pose(28, 78, Math.toRadians(315));
-    private final Pose score5Pose = new Pose(28, 78, Math.toRadians(315));
+    private final Pose grabPose = new Pose(12, 30, Math.toRadians(0));
+    private final Pose grabCtrl1Pose = new Pose(20.8, 34.31, Math.toRadians(0));
+    private final Pose score2Pose = new Pose(44, 74, Math.toRadians(0));
+    private final Pose score3Pose = new Pose(44, 72, Math.toRadians(0));
+    private final Pose score4Pose = new Pose(44, 70, Math.toRadians(0));
+    private final Pose score5Pose = new Pose(44, 68, Math.toRadians(0));
 
     /* These are our Paths and PathChains that we will define in buildPaths() */
     private Path scorePreload, grabPreset1, scorePreset1, grabPreset2, scorePreset2, grabPreset3, scorePreset3, grabPreset4, scorePreset4;
@@ -145,12 +156,12 @@ public class Specimen_5 extends OpMode {
                                 new Point(push3_2Pose)
                         )
                 )
+                .setConstantHeadingInterpolation(Math.toRadians(heading))
                 .build();
 
         grabPreset1 = new Path(
-                new BezierCurve(
+                new BezierLine(
                         new Point(push3_2Pose),
-                        new Point(grabCtrl1Pose),
                         new Point(grabPose)
                 )
         );
@@ -222,45 +233,107 @@ public class Specimen_5 extends OpMode {
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
+                outake.slidesTarget = Values.OUTSLIDES_HCHAM;
+                outake.wristTarget = Values.OUTWRIST_MAX;
+                outake.rotateTarget = Values.OUTROTATE_HCHAM;
+                outake.pivotTarget = Values.OUTPIVOT_HCHAM;
+
                 follower.followPath(scorePreload);
                 setPathState(1);
                 break;
             case 1:
-                follower.followPath(pushPresets,true);
-                setPathState(2);
+                if(!follower.isBusy()) {
+                    switch (actionState) {
+                        case 0:
+                            outake.pivotTarget = Values.OUTPIVOT_HCHAM_S;
+                            outake.slidesTarget = outake.slidesPosition - 100;
+
+                            setActionState(1);
+                            break;
+                        case 1:
+                            if(actionTimer.getElapsedTimeSeconds() > 0.5) {
+                                outake.clawTarget = Values.CLAW_OPENED;
+
+                                setActionState(2);
+                            }
+                            break;
+                        case 2:
+                            if(actionTimer.getElapsedTimeSeconds() > 0.3) {
+                                outake.slidesTarget = Values.OUTSLIDES_MIN;
+                                outake.clawTarget = Values.CLAW_OPENED;
+                                outake.wristTarget = Values.OUTWRIST_GRAB;
+                                outake.rotateTarget = Values.OUTROTATE_GRAB;
+                                outake.pivotTarget = Values.OUTPIVOT_GRAB;
+
+                                setActionState(3);
+                            }
+                            break;
+                        case 3:
+                            if(actionTimer.getElapsedTimeSeconds() > 0.1) {
+                                setActionState(0);
+                                actionProcess = "none";
+
+                                follower.followPath(pushPresets);
+                                setPathState(2);
+                            }
+                            break;
+                    }
+                }
                 break;
             case 2:
-                follower.followPath(grabPreset1);
-                setPathState(3);
+                if(!follower.isBusy()) {
+                    outake.clawTarget = Values.CLAW_OPENED;
+                    outake.wristTarget = Values.OUTWRIST_GRAB;
+                    outake.rotateTarget = Values.OUTROTATE_GRAB;
+                    outake.pivotTarget = Values.OUTPIVOT_GRAB;
+
+                    follower.followPath(grabPreset1);
+                        setPathState(3);
+                }
                 break;
             case 3:
-                follower.followPath(scorePreset1);
-                setPathState(4);
+                if(!follower.isBusy()) {
+                    switch (actionState) {
+                        case 0:
+                            outake.clawTarget = Values.CLAW_CLOSED;
+                            outake.slidesTarget = Values.OUTSLIDES_GRAB;
+
+                            setActionState(1);
+                            break;
+                        case 1:
+                            if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                                follower.followPath(scorePreset1);
+
+                                setPathState(4);
+                            }
+                            break;
+                    }
+                }
                 break;
-            case 4:
-                follower.followPath(grabPreset2);
-                setPathState(5);
-                break;
-            case 5:
-                follower.followPath(scorePreset2);
-                setPathState(6);
-                break;
-            case 6:
-                follower.followPath(grabPreset3);
-                setPathState(7);
-                break;
-            case 7:
-                follower.followPath(scorePreset3);
-                setPathState(8);
-                break;
-            case 8:
-                follower.followPath(grabPreset4);
-                setPathState(9);
-                break;
-            case 9:
-                follower.followPath(scorePreset4);
-                setPathState(-1);
-                break;
+//            case 4:
+//                follower.followPath(grabPreset2);
+//                setPathState(5);
+//                break;
+//            case 5:
+//                follower.followPath(scorePreset2);
+//                setPathState(6);
+//                break;
+//            case 6:
+//                follower.followPath(grabPreset3);
+//                setPathState(7);
+//                break;
+//            case 7:
+//                follower.followPath(scorePreset3);
+//                setPathState(8);
+//                break;
+//            case 8:
+//                follower.followPath(grabPreset4);
+//                setPathState(9);
+//                break;
+//            case 9:
+//                follower.followPath(scorePreset4);
+//                setPathState(-1);
+//                break;
         }
     }
 
@@ -271,15 +344,22 @@ public class Specimen_5 extends OpMode {
         pathTimer.resetTimer();
     }
 
+    public void setActionState(int pAction) {
+        actionState = pAction;
+        actionTimer.resetTimer();
+    }
+
     /** This is the main loop of the OpMode, it will run repeatedly after clicking "Play". **/
     @Override
     public void loop() {
+        outake.move();
 
         // These loop the movements of the robot
         follower.update();
         autonomousPathUpdate();
 
         // Feedback to Driver Hub
+        outake.telemetry();
         telemetry.addData("path state", pathState);
         telemetry.addData("x", follower.getPose().getX());
         telemetry.addData("y", follower.getPose().getY());
@@ -290,6 +370,34 @@ public class Specimen_5 extends OpMode {
     /** This method is called once at the init of the OpMode. **/
     @Override
     public void init() {
+        // Initialize hardware
+        hardwareInitializer = new HardwareInitializer();
+        hardwareInitializer.initHardware(hardwareMap);
+
+        VSLIDES_L = hardwareInitializer.getMotor("VSLIDESL");
+        VSLIDES_R = hardwareInitializer.getMotor("VSLIDESR");
+        OUTPIVOT_L = hardwareInitializer.getServo("OUTPIVOTL");
+        OUTPIVOT_R = hardwareInitializer.getServo("OUTPIVOTR");
+        OUTROTATE = hardwareInitializer.getServo("OUTROTATE");
+        OUTWRIST = hardwareInitializer.getServo("OUTWRIST");
+        OUTCLAW = hardwareInitializer.getServo("OUTCLAW");
+
+        outake = new OuttakeControl(
+                OUTPIVOT_L,
+                OUTPIVOT_R,
+                OUTROTATE,
+                OUTWRIST,
+                OUTCLAW,
+                VSLIDES_L,
+                VSLIDES_R,
+                gamepad1,
+                gamepad2,
+                telemetry
+        );
+
+        outake.init();
+
+        actionTimer = new Timer();
         pathTimer = new Timer();
         opmodeTimer = new Timer();
         opmodeTimer.resetTimer();
@@ -302,7 +410,15 @@ public class Specimen_5 extends OpMode {
 
     /** This method is called continuously after Init while waiting for "play". **/
     @Override
-    public void init_loop() {}
+    public void init_loop() {
+        // Feedback to Driver Hub
+        outake.telemetry();
+        telemetry.addData("path state", pathState);
+        telemetry.addData("x", follower.getPose().getX());
+        telemetry.addData("y", follower.getPose().getY());
+        telemetry.addData("heading", follower.getPose().getHeading());
+        telemetry.update();
+    }
 
     /** This method is called once at the start of the OpMode.
      * It runs all the setup actions, including building paths and starting the path system **/
@@ -310,6 +426,7 @@ public class Specimen_5 extends OpMode {
     public void start() {
         opmodeTimer.resetTimer();
         setPathState(0);
+        setActionState(0);
     }
 
     /** We do not use this because everything should automatically disable **/

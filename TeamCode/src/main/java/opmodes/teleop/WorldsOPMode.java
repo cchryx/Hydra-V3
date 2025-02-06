@@ -268,10 +268,9 @@ public class WorldsOPMode extends OpMode {
         }
         switch (autoProcess_d) {
             case "home":
-                setAutoStep_d(1);
                 switch (autoStep_d) {
                     case 1:
-                        outake.slidesTarget = Values.OUTSLIDES_MIN - 20;
+                        outake.slidesTarget = Values.OUTSLIDES_MIN - 60;
                         outake.clawTarget = Values.CLAW_CLOSED;
                         outake.wristTarget = Values.OUTWRIST_INIT;
                         outake.rotateTarget = Values.OUTROTATE_INIT;
@@ -280,13 +279,23 @@ public class WorldsOPMode extends OpMode {
                         setAutoStep_d(10001);
                         break;
                     case 10001:
-                        VSLIDES_L.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                        VSLIDES_L.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                        if(autoTime.milliseconds() > 300 && outake.slidesPosition <= 0) {
+                            VSLIDES_L.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                            VSLIDES_L.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-                        VSLIDES_R.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                        VSLIDES_R.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                        outake.slidesTarget = Values.OUTSLIDES_MIN;
+                            VSLIDES_R.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                            VSLIDES_R.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                            outake.slidesTarget = Values.OUTSLIDES_MIN;
 
+                            setAutoStep_d(10002);
+                        }
+
+                        if(autoTime.milliseconds() > 350) {
+                            setAutoStep_d(10002);
+                        }
+
+                        break;
+                    case 10002:
                         setAutoStep_d(0);
                         autoProcess_d = "none";
                         break;
@@ -371,7 +380,7 @@ public class WorldsOPMode extends OpMode {
                         break;
                     case 50001:
                         if(autoTime.milliseconds() > 500) {
-                            setAutoStep_d(0);
+                            setAutoStep_d(1);
                             autoProcess_d = "home";
                         }
 
@@ -408,7 +417,7 @@ public class WorldsOPMode extends OpMode {
                         break;
                     case 30001:
                         if(autoTime.milliseconds() > 300) {
-                            setAutoStep_d(0);
+                            setAutoStep_d(1);
                             autoProcess_d = "home";
                         }
                         break;

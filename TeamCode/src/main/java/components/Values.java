@@ -23,7 +23,7 @@ public class Values {
     // ROTATE
     public static double OUTROTATE_MIN = 0;
     public static double OUTROTATE_MAX = 1;
-    public static double OUTROTATE_INIT = 0.3;
+    public static double OUTROTATE_INIT = 0;
     public static double OUTROTATE_GRAB = 0.5;
     public static double OUTROTATE_HCHAM = 0.8;
     public static double OUTROTATE_HBASK = 1;

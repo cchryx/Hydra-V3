@@ -93,17 +93,17 @@ public class IntakeControl {
         double pivot = -gamepad2.right_stick_y;
         double turret = -gamepad2.left_stick_x;
 
-        if(autoProcess_i.equals("submersible")) {
-            if (slidesIn) {
-                double i = Values.HSLIDES_INCR * throttle;
-                double newPos = slidesFPosition - i;
-                slidesTarget = Math.max(newPos, Values.HSLIDES_MIN);
-            } else if (slidesOut) {
-                double i = Values.HSLIDES_INCR * throttle;
-                double newPos = slidesFPosition + i;
-                slidesTarget = Math.min(newPos, Values.HSLIDES_MAX);
-            }
+        if (slidesIn) {
+            double i = Values.HSLIDES_INCR * throttle;
+            double newPos = slidesFPosition - i;
+            slidesTarget = Math.max(newPos, Values.HSLIDES_MIN);
+        } else if (slidesOut) {
+            double i = Values.HSLIDES_INCR * throttle;
+            double newPos = slidesFPosition + i;
+            slidesTarget = Math.min(newPos, Values.HSLIDES_MAX);
+        }
 
+        if(autoProcess_i.equals("submersible")) {
             if (pivot > 0) {
                 double i = Values.OUTPIVOT_INCR * throttle * pivot;
                 double newPos = pivotPosition + i;
