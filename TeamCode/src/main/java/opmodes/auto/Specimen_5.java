@@ -48,6 +48,7 @@ public class Specimen_5 extends OpMode {
     private final double heading = 0;
     private final Pose startPose = new Pose(9, 64, Math.toRadians(0));
     private final Pose score1Pose = new Pose(44, 76, Math.toRadians(0));
+    private final Pose score1Ctrl1Pose = new Pose(16, 60, Math.toRadians(0));
     private final Pose move1Pose = new Pose(39.47, 35.87, Math.toRadians(0));
     private final Pose move1Ctrl1Pose = new Pose(30.42, 41.60, Math.toRadians(0));
     private final Pose push1_1Pose = new Pose(67, 24, Math.toRadians(0));
@@ -96,8 +97,9 @@ public class Specimen_5 extends OpMode {
 
 
         scorePreload = new Path(
-                new BezierLine(
+                new BezierCurve(
                     new Point(startPose),
+                    new Point(score1Ctrl1Pose),
                     new Point(score1Pose)
                 )
         );
@@ -310,10 +312,10 @@ public class Specimen_5 extends OpMode {
                     }
                 }
                 break;
-//            case 4:
-//                follower.followPath(grabPreset2);
-//                setPathState(5);
-//                break;
+            case 4:
+                follower.followPath(grabPreset2);
+                setPathState(5);
+                break;
 //            case 5:
 //                follower.followPath(scorePreset2);
 //                setPathState(6);
