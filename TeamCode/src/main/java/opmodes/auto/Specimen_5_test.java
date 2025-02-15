@@ -10,7 +10,7 @@ import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -21,8 +21,8 @@ import components.Values;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
-@Autonomous(name = "Specimen_5", group = "Auto")
-public class Specimen_5 extends OpMode {
+@Autonomous(name = "Specimen_5_TEST", group = "Auto")
+public class Specimen_5_test extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private HardwareInitializer hardwareInitializer;
@@ -54,18 +54,19 @@ public class Specimen_5 extends OpMode {
     private final Pose score1Ctrl1Pose = new Pose(16, 60, Math.toRadians(0));
     private final Pose move1Pose = new Pose(39.47, 35.87, Math.toRadians(0));
     private final Pose move1Ctrl1Pose = new Pose(30.42, 41.60, Math.toRadians(0));
-    private final Pose push1_1Pose = new Pose(67, 24, Math.toRadians(0));
-    private final Pose push1_1Ctrl1Pose = new Pose(66.49, 32.18, Math.toRadians(0));
-    private final Pose push1_2Pose = new Pose(33, 24, Math.toRadians(0));
-    private final Pose push2_1Pose = new Pose(67, 10.5, Math.toRadians(0));
-    private final Pose push2_1Ctrl1Pose = new Pose(68.27, 28.80, Math.toRadians(0));
-    private final Pose push2_2Pose = new Pose(30, 10.5, Math.toRadians(0));
-    private final Pose push3_1Pose = new Pose(67, 2.5, Math.toRadians(0));
-    private final Pose push3_1Ctrl1Pose = new Pose(68.27, 13.5, Math.toRadians(0));
-    private final Pose push3_2Pose = new Pose(30, 2.5, Math.toRadians(0));
+    private final Pose push1_1Pose = new Pose(32.3, 21.4, Math.toRadians(0));
+    private final Pose push1_1Ctrl1Pose = new Pose(99, 28, Math.toRadians(0));
+    private final Pose push1_1Ctrl2Pose = new Pose(64.6, 19.2, Math.toRadians(0));
+//    private final Pose push1_2Pose = new Pose(33, 24, Math.toRadians(0));
+    private final Pose push2_1Pose = new Pose(32.2, 11.1, Math.toRadians(0));
+    private final Pose push2_1Ctrl1Pose = new Pose(98.9, 12.25, Math.toRadians(0));
+//    private final Pose push2_2Pose = new Pose(30, 10.5, Math.toRadians(0));
+    private final Pose push3_1Pose = new Pose(32, 0.9, Math.toRadians(0));
+    private final Pose push3_1Ctrl1Pose = new Pose(97, 0.9, Math.toRadians(0));
+//    private final Pose push3_2Pose = new Pose(30, 2.5, Math.toRadians(0));
 
     // Grab pose can be reused
-    private final Pose grabPose = new Pose(14, 30, Math.toRadians(0));
+    private final Pose grabPose = new Pose(12, 30, Math.toRadians(0));
     private final Pose grabCtrl1Pose = new Pose(20.8, 34.31, Math.toRadians(0));
     private final Pose score2Pose = new Pose(44, 74, Math.toRadians(0));
     private final Pose score3Pose = new Pose(44, 72, Math.toRadians(0));
@@ -121,52 +122,32 @@ public class Specimen_5 extends OpMode {
                         new BezierCurve(
                                 new Point(move1Pose),
                                 new Point(push1_1Ctrl1Pose),
+                                new Point(push1_1Ctrl2Pose),
                                 new Point(push1_1Pose)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(heading))
-                .addPath(
-                        new BezierLine(
-                                new Point(push1_1Pose),
-                                new Point(push1_2Pose)
-                        )
-                )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
-                .addPath(
-                        new BezierCurve(
-                                new Point(push1_2Pose),
-                                new Point(push2_1Ctrl1Pose),
-                                new Point(push2_1Pose)
-                        )
-                )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
-                .addPath(
-                        new BezierLine(
-                                new Point(push2_1Pose),
-                                new Point(push2_2Pose)
-                        )
-                )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
-                .addPath(
-                        new BezierCurve(
-                                new Point(push2_2Pose),
-                                new Point(push3_1Ctrl1Pose),
-                                new Point(push3_1Pose)
-                        )
-                )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
-                .addPath(
-                        new BezierLine(
-                                new Point(push3_1Pose),
-                                new Point(push3_2Pose)
-                        )
-                )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
+//                .addPath(
+//                        new BezierCurve(
+//                                new Point(push1_1Pose),
+//                                new Point(push2_1Ctrl1Pose),
+//                                new Point(push2_1Pose)
+//                        )
+//                )
+//                .setConstantHeadingInterpolation(Math.toRadians(heading))
+//                .addPath(
+//                        new BezierCurve(
+//                                new Point(push2_1Pose),
+//                                new Point(push3_1Ctrl1Pose),
+//                                new Point(push3_1Pose)
+//                        )
+//                )
+//                .setConstantHeadingInterpolation(Math.toRadians(heading))
                 .build();
 
         grabPreset1 = new Path(
                 new BezierLine(
-                        new Point(push3_2Pose),
+                        new Point(push3_1Pose),
                         new Point(grabPose)
                 )
         );
@@ -256,7 +237,7 @@ public class Specimen_5 extends OpMode {
                             setActionState(1);
                             break;
                         case 1:
-                            if(actionTimer.getElapsedTimeSeconds() > 0.3) {
+                            if(actionTimer.getElapsedTimeSeconds() > 0.2) {
                                 outake.clawTarget = Values.CLAW_OPENED;
 
                                 setActionState(2);
@@ -285,72 +266,72 @@ public class Specimen_5 extends OpMode {
                     }
                 }
                 break;
-            case 2:
-                if(!follower.isBusy()) {
-                    outake.clawTarget = Values.CLAW_OPENED;
-                    outake.wristTarget = Values.OUTWRIST_GRAB;
-                    outake.rotateTarget = Values.OUTROTATE_GRAB;
-                    outake.pivotTarget = Values.OUTPIVOT_GRAB;
-
-                    follower.followPath(grabPreset1);
-                        setPathState(3);
-                }
-                break;
-            case 3:
-                if(!follower.isBusy()) {
-                    switch (actionState) {
-                        case 0:
-                            outake.clawTarget = Values.CLAW_CLOSED;
-                            outake.slidesTarget = Values.OUTSLIDES_GRAB;
-
-                            setActionState(1);
-                            break;
-                        case 1:
-                            if (actionTimer.getElapsedTimeSeconds() > 0.5) {
-                                follower.followPath(scorePreset1);
-
-                                setPathState(4);
-                            }
-                            break;
-                    }
-                }
-                break;
-            case 4:
-                if(!follower.isBusy()) {
-                    follower.followPath(grabPreset2);
-                    setPathState(5);
-                }
-                break;
-            case 5:
-                if(!follower.isBusy()) {
-                    follower.followPath(scorePreset2);
-                    setPathState(6);
-                }
-                break;
-            case 6:
-                if(!follower.isBusy()) {
-                    follower.followPath(grabPreset3);
-                    setPathState(7);
-                }
-                break;
-            case 7:
-                if(!follower.isBusy()) {
-                    follower.followPath(scorePreset3);
-                    setPathState(8);
-                }
-                break;
-            case 8:
-                if(!follower.isBusy()) {
-                    follower.followPath(grabPreset4);
-                    setPathState(9);
-                }
-                break;
-            case 9:
-                if(!follower.isBusy()) {
-                    follower.followPath(scorePreset4);
-                    setPathState(-1);
-                }
-                break;
+//            case 2:
+//                if(!follower.isBusy()) {
+//                    outake.clawTarget = Values.CLAW_OPENED;
+//                    outake.wristTarget = Values.OUTWRIST_GRAB;
+//                    outake.rotateTarget = Values.OUTROTATE_GRAB;
+//                    outake.pivotTarget = Values.OUTPIVOT_GRAB;
+//
+//                    follower.followPath(grabPreset1);
+//                        setPathState(3);
+//                }
+//                break;
+//            case 3:
+//                if(!follower.isBusy()) {
+//                    switch (actionState) {
+//                        case 0:
+//                            outake.clawTarget = Values.CLAW_CLOSED;
+//                            outake.slidesTarget = Values.OUTSLIDES_GRAB;
+//
+//                            setActionState(1);
+//                            break;
+//                        case 1:
+//                            if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+//                                follower.followPath(scorePreset1);
+//
+//                                setPathState(4);
+//                            }
+//                            break;
+//                    }
+//                }
+//                break;
+//            case 4:
+//                if(!follower.isBusy()) {
+//                    follower.followPath(grabPreset2);
+//                    setPathState(5);
+//                }
+//                break;
+//            case 5:
+//                if(!follower.isBusy()) {
+//                    follower.followPath(scorePreset2);
+//                    setPathState(6);
+//                }
+//                break;
+//            case 6:
+//                if(!follower.isBusy()) {
+//                    follower.followPath(grabPreset3);
+//                    setPathState(7);
+//                }
+//                break;
+//            case 7:
+//                if(!follower.isBusy()) {
+//                    follower.followPath(scorePreset3);
+//                    setPathState(8);
+//                }
+//                break;
+//            case 8:
+//                if(!follower.isBusy()) {
+//                    follower.followPath(grabPreset4);
+//                    setPathState(9);
+//                }
+//                break;
+//            case 9:
+//                if(!follower.isBusy()) {
+//                    follower.followPath(scorePreset4);
+//                    setPathState(-1);
+//                }
+//                break;
         }
     }
 
