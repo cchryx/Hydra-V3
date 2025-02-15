@@ -51,10 +51,10 @@ public class MecanumDTControl {
 
         // Throttle speed
         if(gamepad1.right_trigger > 0) {
-            FR_power *= Values.DT_SLOW_FACTOR;
-            BR_power *= Values.DT_SLOW_FACTOR;
-            FL_power *= Values.DT_SLOW_FACTOR;
-            BL_power *= Values.DT_SLOW_FACTOR;
+            FR_power *= Math.min(1, 1.5 - gamepad1.right_trigger);
+            BR_power *= Math.min(1, 1.5 - gamepad1.right_trigger);
+            FL_power *= Math.min(1, 1.5 - gamepad1.right_trigger);
+            BL_power *= Math.min(1, 1.5 - gamepad1.right_trigger);
         }
 
         // Set motor powers

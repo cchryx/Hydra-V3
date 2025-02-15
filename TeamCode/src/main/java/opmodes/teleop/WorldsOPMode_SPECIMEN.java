@@ -2,16 +2,11 @@ package opmodes.teleop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import components.HardwareInitializer;
 import components.IntakeControl;
@@ -19,8 +14,8 @@ import components.MecanumDTControl;
 import components.OuttakeControl;
 import components.Values;
 
-@TeleOp(group = "Actual", name = "WorldsOPMode")
-public class WorldsOPMode extends OpMode {
+@TeleOp(group = "Actual", name = "WorldsOPMode_SPECIMEN")
+public class WorldsOPMode_SPECIMEN extends OpMode {
     private HardwareInitializer hardwareInitializer;
     private MecanumDTControl mecanumDrive;
     private OuttakeControl outake;
@@ -186,6 +181,19 @@ public class WorldsOPMode extends OpMode {
                             intake.rotateTarget = Values.INROTATE_DROP;
                             intake.slidesTarget = Values.HSLIDES_MIN;
 
+                            setAutoStep_i(10001);
+                        }
+                        break;
+                    case 10001:
+                        if (autoTime.milliseconds() > 100) {
+                            autoProcess_d = "chamber";
+                            setAutoStep_d(2);
+                            outake.slidesTarget = Values.OUTSLIDES_MIN;
+                            outake.clawTarget = Values.CLAW_OPENED;
+                            outake.wristTarget = Values.OUTWRIST_GRAB;
+                            outake.rotateTarget = Values.OUTROTATE_GRAB;
+                            outake.pivotTarget = Values.OUTPIVOT_GRAB;
+
                             setAutoStep_i(2);
                         }
                         break;
@@ -221,9 +229,7 @@ public class WorldsOPMode extends OpMode {
                         }
                         break;
                     case 2:
-                        if (autoTime.milliseconds() > 600) {
-                            intake.clawTarget = Values.CLAW_OPENED;
-
+                        if (autoTime.milliseconds() > 100) {
                             setAutoStep_i(0);
                             autoProcess_i = "none";
                         }
@@ -239,6 +245,7 @@ public class WorldsOPMode extends OpMode {
                             intake.turretTarget = Values.INTURRET_INIT;
                             intake.pivotTarget = Values.INPIVOT_SUB;
                             intake.rotateTarget = Values.INROTATE_SUB;
+                            intake.slidesTarget = Values.HSLIDES_SUB;
 
                             setAutoStep_i(2);
                         }
@@ -309,23 +316,21 @@ public class WorldsOPMode extends OpMode {
                         if (transfer && !pTransfer) {
                             outake.slidesTarget = Values.OUTSLIDES_MIN;
                             outake.clawTarget = Values.CLAW_OPENED;
-                            outake.wristTarget = Values.OUTWRIST_INIT;
+                            outake.wristTarget = Values.OUTWRIST_MAX;
                             outake.rotateTarget = Values.OUTROTATE_TRANSFER;
 
                             setAutoStep_d(10001);
                         }
                         break;
                     case 10001:
-                        if(autoTime.milliseconds() > 400) {
+                        if(autoTime.milliseconds() > 100) {
                             outake.pivotTarget = Values.OUTPIVOT_TRANSFER;
 
                             setAutoStep_d(10002);
                         }
                         break;
                     case 10002:
-                        if (outake.pivotTarget == Values.OUTPIVOT_TRANSFER && autoTime.milliseconds() > 600) {
-                            outake.clawTarget = Values.CLAW_CLOSED;
-
+                        if (autoTime.milliseconds() > 100) {
                             setAutoStep_d(0);
                             autoProcess_d = "none";
                         }
@@ -347,6 +352,13 @@ public class WorldsOPMode extends OpMode {
                     case 2:
                         if (chamber && !pChamber && autoTime.milliseconds() > 100) {
                             outake.clawTarget = Values.CLAW_CLOSED;
+
+                            intake.turretTarget = Values.INTURRET_INIT;
+                            intake.pivotTarget = Values.INPIVOT_INIT;
+                            intake.wristTarget = Values.INWRIST_INIT;
+                            intake.rotateTarget = Values.INROTATE_INIT;
+                            intake.clawTarget = Values.CLAW_CLOSED;
+                            intake.slidesTarget = Values.HSLIDES_INIT;
                             setAutoStep_d(20001);
                         }
                         break;
@@ -368,7 +380,7 @@ public class WorldsOPMode extends OpMode {
                     case 4:
                         if (chamber && !pChamber && autoTime.milliseconds() > 100) {
                             outake.pivotTarget = Values.OUTPIVOT_HCHAM_S;
-                            outake.slidesTarget = outake.slidesPosition - 100;
+                            outake.slidesTarget = outake.slidesPosition - 60;
                             setAutoStep_d(5);
                         }
                         break;
@@ -390,32 +402,40 @@ public class WorldsOPMode extends OpMode {
             case "basket":
                 switch (autoStep_d) {
                     case 1:
-                        if (basket && !pBasket && autoTime.milliseconds() > 100) {
+                        if (basket && !pBasket) {
+                            intake.clawTarget = Values.CLAW_OPENED;
                             outake.clawTarget = Values.CLAW_CLOSED;
-                            outake.pivotTarget = Values.OUTPIVOT_HBASK;
-                            outake.slidesTarget = Values.OUTSLIDES_MAX;
-                            setAutoStep_d(10001);
-                        }
-                        break;
-                    case 10001:
-                        if (autoTime.milliseconds() > 100) {
-                            outake.rotateTarget = Values.OUTROTATE_HBASK;
                             setAutoStep_d(2);
                         }
                         break;
                     case 2:
-                        if (basket && !pBasket && autoTime.milliseconds() > 100) {
-                            outake.clawTarget = Values.CLAW_OPENED;
+                        if (basket && !pBasket && autoTime.milliseconds() > 300) {
+                            outake.pivotTarget = Values.OUTPIVOT_HBASK;
+                            outake.slidesTarget = Values.OUTSLIDES_MAX;
+                            outake.wristTarget = Values.OUTWRIST_MAX;
+
+                            setAutoStep_d(20002);
+                        }
+                        break;
+                    case 20002:
+                        if (autoTime.milliseconds() > 100) {
+                            outake.rotateTarget = Values.OUTROTATE_HBASK;
                             setAutoStep_d(3);
                         }
                         break;
                     case 3:
-                        if (basket && !pBasket) {
-                            outake.pivotTarget = Values.OUTPIVOT_HBASK + 0.1;
-                            setAutoStep_d(30001);
+                        if (basket && !pBasket && autoTime.milliseconds() > 100) {
+                            outake.clawTarget = Values.CLAW_OPENED;
+                            setAutoStep_d(4);
                         }
                         break;
-                    case 30001:
+                    case 4:
+                        if (basket && !pBasket) {
+                            outake.pivotTarget = Values.OUTPIVOT_HBASK + 0.3;
+                            setAutoStep_d(40001);
+                        }
+                        break;
+                    case 40001:
                         if(autoTime.milliseconds() > 300) {
                             setAutoStep_d(1);
                             autoProcess_d = "home";

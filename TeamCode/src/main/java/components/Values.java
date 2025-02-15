@@ -1,8 +1,6 @@
 package components;
 
 public class Values {
-    public static double DT_SLOW_FACTOR = 0.3   ;
-
     /////////////
     // OUTTAKE //
     /////////////
@@ -16,8 +14,8 @@ public class Values {
     public static double OUTPIVOT_GRAB = 0.12;
     public static double OUTPIVOT_HCHAM = 0.82;
     public static double OUTPIVOT_HCHAM_S = 0.9;
-    public static double OUTPIVOT_HBASK = 0.5;
-    public static double OUTPIVOT_TRANSFER = 0.74;
+    public static double OUTPIVOT_HBASK = 0.4;
+    public static double OUTPIVOT_TRANSFER = 0.55;
 
 
     // ROTATE
@@ -26,8 +24,8 @@ public class Values {
     public static double OUTROTATE_INIT = 0;
     public static double OUTROTATE_GRAB = 0.5;
     public static double OUTROTATE_HCHAM = 0.8;
-    public static double OUTROTATE_HBASK = 1;
-    public static double OUTROTATE_TRANSFER = 0.06;
+    public static double OUTROTATE_HBASK = 0.9;
+    public static double OUTROTATE_TRANSFER = 0.12;
 
     // WRIST
     public static double OUTWRIST_MIN = 0;
@@ -47,7 +45,7 @@ public class Values {
     ////////////
 
     // TURRET
-    public static double INTURRET_INIT = 0.36;
+    public static double INTURRET_INIT = 0.34;
     public static double INTURRET_MIN = 0;
     public static double INTURRET_MAX = 1;
     public static double INTURRET_INCR = 0.008;
@@ -57,22 +55,22 @@ public class Values {
     public static double INPIVOT_INIT = 0.9;
     public static double INPIVOT_MIN = 0.26;
     public static double INPIVOT_MAX = 0.9;
-    public static double INPIVOT_SUB = 0.3;
-    public static double INPIVOT_SUB_G = 0.26;
+    public static double INPIVOT_SUB = 0.59;
+    public static double INPIVOT_SUB_G = 0.55;
     public static double INPIVOT_TRANSFER = 0.9;
     public static double INPIVOT_INCR = 0.008;
-    public static double INPIVOT_DROP = 0.86;
+    public static double INPIVOT_DROP = 1;
 
     // WRIST
-    public static double INWRIST_INIT = 0.03;
+    public static double INWRIST_INIT = 0.47;
     public static double INWRIST_MIN = 0;
     public static double INWRIST_MAX = 1;
     public static double INWRIST_INCR = 0.008;
 
     // ROTATE
-    public static double INROTATE_INIT = 1;
-    public static double INROTATE_SUB = 0.8;
-    public static double INROTATE_SUB_G = 0.75;
+    public static double INROTATE_INIT = 0;
+    public static double INROTATE_SUB = 0.95;
+    public static double INROTATE_SUB_G = 0.95;
     public static double INROTATE_DROP = 0.45;
 
     // ROTATE
@@ -80,7 +78,8 @@ public class Values {
     public static double HSLIDES_OFFSET = 0.03;
     public static double HSLIDES_MIN = 0;
     public static double HSLIDES_MAX = 0.7;
-    public static double HSLIDES_INCR = 0.05;
+    public static double HSLIDES_INCR = 0.03;
+    public static double HSLIDES_SUB = 0.4;
 
     ////////////
     // SHARED //
