@@ -9,10 +9,13 @@ import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import java.util.List;
 
 import components.HardwareInitializer;
 import components.IntakeControl;
@@ -232,6 +235,27 @@ public class Specimen_5 extends OpMode {
         scorePreset4.setConstantHeadingInterpolation(heading);
     }
 
+    public void scoringUp() {
+
+    }
+    public void scoringDown() {
+
+    }
+    public void scoringClawOpen() {
+
+    }
+    public void scoringHome() {
+
+    }
+
+    public void intakeHome() {
+
+    }
+
+    public void intakeUp() {
+
+    }
+
     /** This switch is called continuously and runs the pathing, at certain points, it triggers the action state.
      * Everytime the switch changes case, it will reset the timer. (This is because of the setPathState() method)
      * The followPath() function sets the follower to run the specific path, but does NOT wait for it to finish before moving on. */
@@ -387,6 +411,13 @@ public class Specimen_5 extends OpMode {
     /** This method is called once at the init of the OpMode. **/
     @Override
     public void init() {
+        //Test this
+        List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
+
+        for (LynxModule module : allHubs) {
+            module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+        }
+
         // Initialize hardware
         hardwareInitializer = new HardwareInitializer();
         hardwareInitializer.initHardware(hardwareMap);
@@ -406,6 +437,8 @@ public class Specimen_5 extends OpMode {
         INCLAW = hardwareInitializer.getServo("INCLAW");
         HSLIDES_F = hardwareInitializer.getServo("HSLIDESF");
         HSLIDES_B = hardwareInitializer.getServo("HSLIDESB");
+
+
 
         outake = new OuttakeControl(
                 OUTPIVOT_L,
@@ -458,6 +491,7 @@ public class Specimen_5 extends OpMode {
         telemetry.addData("heading", follower.getPose().getHeading());
         telemetry.update();
     }
+
 
     /** This method is called once at the start of the OpMode.
      * It runs all the setup actions, including building paths and starting the path system **/
