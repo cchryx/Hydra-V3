@@ -106,7 +106,7 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
     public void loop() {
         mecanumDrive.move();
         outake.move();
-        intake.move(autoProcess_i, autoStep_i);
+        intake.move(autoProcess_i);
 
         // Auto Stuff
         boolean home = gamepad1.ps || gamepad2.ps;

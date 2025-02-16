@@ -73,7 +73,7 @@ public class IntakeControl {
         HSLIDES_F.setPosition(slidesTarget);
     }
 
-    public void move(String autoProcess_i, int autoStep_i) {
+    public void move(String autoProcess_i) {
         wristPosition = INWRIST.getPosition();
         pivotPosition = INPIVOT.getPosition();
         turretPosition = INTURRET.getPosition();

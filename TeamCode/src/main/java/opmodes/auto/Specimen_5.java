@@ -256,14 +256,14 @@ public class Specimen_5 extends OpMode {
                             setActionState(1);
                             break;
                         case 1:
-                            if(actionTimer.getElapsedTimeSeconds() > 0.3) {
+                            if(actionTimer.getElapsedTimeSeconds() > 0) {
                                 outake.clawTarget = Values.CLAW_OPENED;
 
                                 setActionState(2);
                             }
                             break;
                         case 2:
-                            if(actionTimer.getElapsedTimeSeconds() > 0.1) {
+                            if(actionTimer.getElapsedTimeSeconds() > 0) {
                                 outake.slidesTarget = Values.OUTSLIDES_MIN;
                                 outake.clawTarget = Values.CLAW_OPENED;
                                 outake.wristTarget = Values.OUTWRIST_GRAB;
