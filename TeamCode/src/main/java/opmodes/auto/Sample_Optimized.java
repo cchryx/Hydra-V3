@@ -39,14 +39,12 @@ public class Sample_Optimized extends OpMode {
     /** This is the variable where we store the state of our auto.
      * It is used by the pathUpdate method. */
     private int pathState, actionState;
-    private String actionProcess = "none";
 
     /** Start Pose of our robot */
-    private final double heading = 0;
-    private final Pose startPose = new Pose(9, 85, Math.toRadians(0));
+    private final Pose startPose = new Pose(9, 111, Math.toRadians(0));
 
+    private double sideSample = 0.6;
     private Path scorePreload, grabPreset1, scorePreset1, grabPreset2, scorePreset2, grabPreset3, scorePreset3, park;
-    private PathChain pushPresets;
 
     public void buildPaths() {
 
@@ -65,7 +63,7 @@ public class Sample_Optimized extends OpMode {
                 new BezierCurve(
                         new Point(18.000, 125.000, Point.CARTESIAN),
                         new Point(23.000, 120.000, Point.CARTESIAN),
-                        new Point(35.000, 118.000, Point.CARTESIAN)
+                        new Point(35.000, 124.000, Point.CARTESIAN)
                 )
         );
         grabPreset1.setConstantHeadingInterpolation(Math.toRadians(0));
@@ -85,7 +83,7 @@ public class Sample_Optimized extends OpMode {
                 new BezierCurve(
                         new Point(18.000, 125.000, Point.CARTESIAN),
                         new Point(26.503, 127.797, Point.CARTESIAN),
-                        new Point(35.000, 130.000, Point.CARTESIAN)
+                        new Point(35.000, 136.000, Point.CARTESIAN)
                 )
         );
         grabPreset2.setConstantHeadingInterpolation(Math.toRadians(0));
@@ -274,12 +272,13 @@ public class Sample_Optimized extends OpMode {
 
                 }
                 break;
-
             case 3:
                 switch (actionState){
                     case 0:
-                        scoringUp();
-                        setActionState(1);
+                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                            scoringUp();
+                            setActionState(1);
+                        }
                         break;
                     case 1:
                         if (actionTimer.getElapsedTimeSeconds() > 0.3) {
@@ -324,7 +323,7 @@ public class Sample_Optimized extends OpMode {
             case 5:
                 switch (actionState) {
                     case 0:
-                        if(!follower.isBusy()) {
+                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 1) {
                             intakeDown();
                             setActionState(1);
                         }
@@ -355,8 +354,10 @@ public class Sample_Optimized extends OpMode {
             case 6:
                 switch (actionState){
                     case 0:
-                        scoringUp();
-                        setActionState(1);
+                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                            scoringUp();
+                            setActionState(1);
+                        }
                         break;
                     case 1:
                         if (actionTimer.getElapsedTimeSeconds() > 0.3) {
@@ -379,7 +380,10 @@ public class Sample_Optimized extends OpMode {
                         if (actionTimer.getElapsedTimeSeconds() > 0.5) {
                             outtakeHome1();
                             follower.followPath(grabPreset3);
-                            intake();
+                            intake.clawTarget = Values.CLAW_OPENED;
+                            intake.pivotTarget = Values.INPIVOT_SUB;
+                            intake.rotateTarget = Values.INROTATE_SUB;
+                            intake.wristTarget = sideSample;
                             setActionState(2);
                         }
                         break;
@@ -402,14 +406,20 @@ public class Sample_Optimized extends OpMode {
             case 8:
                 switch (actionState) {
                     case 0:
-                        if(!follower.isBusy()) {
-                            intakeDown();
+                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 1) {
+                            intake.clawTarget = Values.CLAW_OPENED;
+                            intake.pivotTarget = Values.INPIVOT_SUB_G;
+                            intake.rotateTarget = Values.INROTATE_SUB_G;
+                            intake.wristTarget = sideSample;
                             setActionState(1);
                         }
                         break;
                     case 1:
                         if (actionTimer.getElapsedTimeSeconds() > 0.4) {
-                            transfer1();
+                            intake.clawTarget = Values.CLAW_CLOSED;
+                            outake.rotateTarget = Values.OUTROTATE_TRANSFER;
+                            outake.clawTarget = Values.CLAW_OPENED;
+                            outake.pivotTarget = Values.OUTPIVOT_TRANSFER;
                             setActionState(2);
                         }
                         break;
@@ -432,8 +442,10 @@ public class Sample_Optimized extends OpMode {
             case 9:
                 switch (actionState){
                     case 0:
-                        scoringUp();
-                        setActionState(1);
+                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                            scoringUp();
+                            setActionState(1);
+                        }
                         break;
                     case 1:
                         if (actionTimer.getElapsedTimeSeconds() > 0.3) {
@@ -455,7 +467,7 @@ public class Sample_Optimized extends OpMode {
                     case 1:
                         if (actionTimer.getElapsedTimeSeconds() > 0.5) {
                             outtakeHome1();
-                            follower.followPath(park);
+//                            follower.followPath(park);
                             intake();
                             setActionState(2);
                         }

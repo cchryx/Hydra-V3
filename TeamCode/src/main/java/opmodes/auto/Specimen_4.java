@@ -24,8 +24,8 @@ import components.Values;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
-@Autonomous(name = "Specimen_5_Optimized", group = "Auto")
-public class Specimen_optimized extends OpMode {
+@Autonomous(name = "Specimen_4", group = "Auto")
+public class Specimen_4 extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private HardwareInitializer hardwareInitializer;
@@ -45,7 +45,9 @@ public class Specimen_optimized extends OpMode {
     private final double heading = 0;
     private final Pose startPose = new Pose(9, 64, Math.toRadians(0));
 
-    private Path scorePreload, scorePreset1, grabPreset2, scorePreset2, grabPreset3, scorePreset3, grabPreset4, scorePreset4, park;
+    public double waitPickup = 0.25;
+
+    private Path scorePreload, pushPreset1, pushPreset2, pushPreset3, align1, align2, align3, align4, scorePreset1, grabPreset2, scorePreset2, grabPreset3, scorePreset3, grabPreset4, scorePreset4, park;
     private PathChain pushPresets;
 
     public void buildPaths() {
@@ -54,155 +56,191 @@ public class Specimen_optimized extends OpMode {
                 // Line 1
                 new BezierCurve(
                         new Point(9.000, 64.000, Point.CARTESIAN),
-                        new Point(16.000, 60.000, Point.CARTESIAN),
-                        new Point(44.000, 76.000, Point.CARTESIAN)
+                        new Point(13.232, 73.196, Point.CARTESIAN),
+                        new Point(40.540, 77.138, Point.CARTESIAN)
                 )
         );
-        scorePreload.setConstantHeadingInterpolation(heading);
+        scorePreload.setConstantHeadingInterpolation(Math.toRadians(0));
 
         pushPresets = follower.pathBuilder()
                 .addPath(
                         // Line 2
                         new BezierCurve(
-                                new Point(44.000, 76.000, Point.CARTESIAN),
-                                new Point(30.000, 42.000, Point.CARTESIAN),
-                                new Point(40.000, 36.000, Point.CARTESIAN)
+                                new Point(40.540, 77.138, Point.CARTESIAN),
+                                new Point(24.774, 42.370, Point.CARTESIAN),
+                                new Point(47.155, 32.094, Point.CARTESIAN)
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 3
                         new BezierCurve(
-                                new Point(40.000, 36.000, Point.CARTESIAN),
-                                new Point(67.000, 32.000, Point.CARTESIAN),
-                                new Point(67.000, 24.000, Point.CARTESIAN)
+                                new Point(47.155, 32.094, Point.CARTESIAN),
+                                new Point(56.023, 33.783, Point.CARTESIAN),
+                                new Point(71.226, 23.648, Point.CARTESIAN)
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 4
                         new BezierLine(
-                                new Point(67.000, 24.000, Point.CARTESIAN),
+                                new Point(71.226, 23.648, Point.CARTESIAN),
                                 new Point(33.000, 24.000, Point.CARTESIAN)
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 5
                         new BezierCurve(
                                 new Point(33.000, 24.000, Point.CARTESIAN),
-                                new Point(69.000, 29.000, Point.CARTESIAN),
-                                new Point(67.000, 17.000, Point.CARTESIAN)
+                                new Point(61.513, 30.968, Point.CARTESIAN),
+                                new Point(71.226, 21.255, Point.CARTESIAN)
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 6
                         new BezierLine(
-                                new Point(67.000, 17.000, Point.CARTESIAN),
-                                new Point(30.000, 17.000, Point.CARTESIAN)
+                                new Point(71.226, 21.255, Point.CARTESIAN),
+                                new Point(30.264, 20.270, Point.CARTESIAN)
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 7
                         new BezierCurve(
-                                new Point(30.000, 17.000, Point.CARTESIAN),
-                                new Point(68.000, 20.000, Point.CARTESIAN),
-                                new Point(67.000, 12.000, Point.CARTESIAN)
+                                new Point(30.264, 20.270, Point.CARTESIAN),
+                                new Point(67.566, 28.152, Point.CARTESIAN),
+                                new Point(73.196, 17.877, Point.CARTESIAN)
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 8
                         new BezierCurve(
-                                new Point(67.000, 12.000, Point.CARTESIAN),
-                                new Point(18.000, 10.000, Point.CARTESIAN),
-                                new Point(10.000, 22.000, Point.CARTESIAN)
+                                new Point(73.196, 17.877, Point.CARTESIAN),
+                                new Point(16.751, 14.076, Point.CARTESIAN),
+                                new Point(29.560, 31.812, Point.CARTESIAN),
+                                new Point(16.891, 45.607, Point.CARTESIAN)
                         )
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(heading))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
 
-        scorePreset1 = new Path(
+        align1 = new Path(
                 // Line 9
-                new BezierCurve(
-                        new Point(10.000, 22.000, Point.CARTESIAN),
-                        new Point(6.000, 60.000, Point.CARTESIAN),
-                        new Point(50.000, 80.000, Point.CARTESIAN)
+                new BezierLine(
+                        new Point(16.891, 45.607, Point.CARTESIAN),
+                        new Point(10.839, 45.748, Point.CARTESIAN)
                 )
-        );
-        scorePreset1.setConstantHeadingInterpolation(heading);
 
-        grabPreset2 = new Path(
+        );
+        align1.setConstantHeadingInterpolation(Math.toRadians(0));
+
+        scorePreset1 = new Path(
                 // Line 10
                 new BezierCurve(
-                        new Point(50.000, 80.000, Point.CARTESIAN),
-                        new Point(15.000, 60.000, Point.CARTESIAN),
-                        new Point(9.000, 28.000, Point.CARTESIAN)
+                        new Point(10.839, 45.748, Point.CARTESIAN),
+                        new Point(28.293, 44.762, Point.CARTESIAN),
+                        new Point(13.372, 82.205, Point.CARTESIAN),
+                        new Point(40.258, 87.554, Point.CARTESIAN)
                 )
         );
-        grabPreset2.setConstantHeadingInterpolation(heading);
+        scorePreset1.setConstantHeadingInterpolation(Math.toRadians(0));
 
-        scorePreset2 = new Path(
+        grabPreset2 = new Path(
                 // Line 11
                 new BezierCurve(
-                        new Point(9.000, 28.000, Point.CARTESIAN),
-                        new Point(6.000, 60.000, Point.CARTESIAN),
-                        new Point(50.000, 80.000, Point.CARTESIAN)
+                        new Point(40.258, 87.554, Point.CARTESIAN),
+                        new Point(25.619, 81.079, Point.CARTESIAN),
+                        new Point(31.812, 54.616, Point.CARTESIAN),
+                        new Point(16.328, 49.408, Point.CARTESIAN)
                 )
         );
-        scorePreset2.setConstantHeadingInterpolation(heading);
+        grabPreset2.setConstantHeadingInterpolation(Math.toRadians(4));
 
-        grabPreset3 = new Path(
+        align2 = new Path(
                 // Line 12
-                new BezierCurve(
-                        new Point(50.000, 80.000, Point.CARTESIAN),
-                        new Point(15.000, 60.000, Point.CARTESIAN),
-                        new Point(9.000, 28.000, Point.CARTESIAN)
+                new BezierLine(
+                        new Point(16.328, 49.408, Point.CARTESIAN),
+                        new Point(10.276, 48.704, Point.CARTESIAN)
                 )
         );
-        grabPreset3.setConstantHeadingInterpolation(heading);
+        align2.setConstantHeadingInterpolation(Math.toRadians(4));
 
-        scorePreset3 = new Path(
+        scorePreset2 = new Path(
                 // Line 13
                 new BezierCurve(
-                        new Point(9.000, 28.000, Point.CARTESIAN),
-                        new Point(6.000, 60.000, Point.CARTESIAN),
-                        new Point(50.000, 80.000, Point.CARTESIAN)
+                        new Point(10.276, 48.704, Point.CARTESIAN),
+                        new Point(28.856, 44.481, Point.CARTESIAN),
+                        new Point(13.935, 82.768, Point.CARTESIAN),
+                        new Point(39.977, 86.710, Point.CARTESIAN)
                 )
         );
-        scorePreset3.setConstantHeadingInterpolation(heading);
+        scorePreset2.setConstantHeadingInterpolation(Math.toRadians(5));
 
-        grabPreset4 = new Path(
+        grabPreset3 = new Path(
                 // Line 14
                 new BezierCurve(
-                        new Point(50.000, 80.000, Point.CARTESIAN),
-                        new Point(16.000, 60.000, Point.CARTESIAN),
-                        new Point(9.000, 28.000, Point.CARTESIAN)
+                        new Point(39.977, 86.710, Point.CARTESIAN),
+                        new Point(24.915, 80.798, Point.CARTESIAN),
+                        new Point(31.390, 54.616, Point.CARTESIAN),
+                        new Point(16.751, 49.689, Point.CARTESIAN)
                 )
         );
-        grabPreset4.setConstantHeadingInterpolation(heading);
+        grabPreset3.setConstantHeadingInterpolation(Math.toRadians(5));
 
-        scorePreset4 = new Path(
+        align3 = new Path(
                 // Line 15
-                new BezierCurve(
-                        new Point(9.000, 28.000, Point.CARTESIAN),
-                        new Point(6.000, 60.000, Point.CARTESIAN),
-                        new Point(50.000, 80.000, Point.CARTESIAN)
+                new BezierLine(
+                        new Point(16.751, 49.689, Point.CARTESIAN),
+                        new Point(9.431, 48.704, Point.CARTESIAN)
                 )
         );
-        scorePreset4.setConstantHeadingInterpolation(heading);
+        align3.setConstantHeadingInterpolation(Math.toRadians(7));
+
+        scorePreset3 = new Path(
+                // Line 16
+                new BezierCurve(
+                        new Point(9.431, 48.704, Point.CARTESIAN),
+                        new Point(28.716, 44.622, Point.CARTESIAN),
+                        new Point(13.232, 82.065, Point.CARTESIAN),
+                        new Point(39.977, 85.584, Point.CARTESIAN)
+                )
+        );
+        scorePreset3.setConstantHeadingInterpolation(Math.toRadians(7));
+
+        grabPreset4 = new Path(
+                // Line 17
+                new BezierCurve(
+                        new Point(39.977, 85.584, Point.CARTESIAN),
+                        new Point(25.337, 81.220, Point.CARTESIAN),
+                        new Point(31.531, 54.616, Point.CARTESIAN),
+                        new Point(16.751, 49.548, Point.CARTESIAN)
+                )
+        );
+        grabPreset4.setConstantHeadingInterpolation(Math.toRadians(7));
+
+        align4 = new Path(
+                // Line 18
+                new BezierLine(
+                        new Point(16.751, 49.548, Point.CARTESIAN),
+                        new Point(9.009, 48.563, Point.CARTESIAN)
+                )
+        );
+        align4.setConstantHeadingInterpolation(Math.toRadians(7));
 
         park = new Path(
-                // Line 16
+                // Line 19
                 new BezierLine(
-                        new Point(50.000, 80.000, Point.CARTESIAN),
-                        new Point(30.000, 50.000, Point.CARTESIAN)
+                        new Point(9.009, 48.563, Point.CARTESIAN),
+                        new Point(14.639, 53.208, Point.CARTESIAN)
                 )
         );
-        park.setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(60));
+        park.setLinearHeadingInterpolation(Math.toRadians(7), Math.toRadians(45));
+
     }
+
 
     public void scoringUp() {
         outake.slidesTarget = Values.OUTSLIDES_HCHAM;
@@ -211,7 +249,7 @@ public class Specimen_optimized extends OpMode {
         outake.pivotTarget = Values.OUTPIVOT_HCHAM;
     }
     public void scoringDown() {
-        outake.pivotTarget = Values.OUTPIVOT_HCHAM_S;
+        outake.pivotTarget = 0.85;
         outake.slidesTarget = outake.slidesPosition - 100;
     }
     public void scoringClawOpen() {
@@ -228,13 +266,26 @@ public class Specimen_optimized extends OpMode {
     public void intakeHome() {
         outake.clawTarget = Values.CLAW_OPENED;
         outake.wristTarget = Values.OUTWRIST_GRAB;
-        outake.rotateTarget = Values.OUTROTATE_GRAB;
-        outake.pivotTarget = Values.OUTPIVOT_GRAB;
+        outake.rotateTarget = Values.OUTROTATE_GRAB - 0.2;
+        outake.pivotTarget = Values.OUTPIVOT_GRAB - 0.11;
     }
 
-    public void intakeUp() {
+    public void intakeUp1() {
         outake.clawTarget = Values.CLAW_CLOSED;
+
+    }
+
+    public void intakeUp2() {
         outake.slidesTarget = Values.OUTSLIDES_GRAB;
+    }
+
+    public void intakeExtend() {
+        intake.wristTarget = Values.INWRIST_INIT;
+        intake.clawTarget = Values.CLAW_OPENED;
+        intake.turretTarget = Values.INTURRET_INIT;
+        intake.pivotTarget = Values.INPIVOT_SUB;
+        intake.rotateTarget = Values.INROTATE_SUB;
+        intake.slidesTarget = Values.HSLIDES_MAX;
     }
 
     public void autonomousPathUpdate() {
@@ -258,7 +309,7 @@ public class Specimen_optimized extends OpMode {
                             }
                             break;
                         case 2:
-                            if(actionTimer.getElapsedTimeSeconds() > 0) {
+                            if(actionTimer.getElapsedTimeSeconds() > 0.2) {
                                 scoringHome();
                                 setActionState(3);
                             }
@@ -274,8 +325,10 @@ public class Specimen_optimized extends OpMode {
                 }
                 break;
             case 2:
-                if(!follower.isBusy()) {
+                if (!follower.isBusy()) {
+                    follower.followPath(align1);
                     intakeHome();
+                    setActionState(0);
                     setPathState(3);
                 }
                 break;
@@ -283,11 +336,16 @@ public class Specimen_optimized extends OpMode {
                 if(!follower.isBusy()) {
                     switch (actionState) {
                         case 0:
-                            intakeUp();
-                            setActionState(1);
+                            if (actionTimer.getElapsedTimeSeconds() > waitPickup) {
+                                intakeUp1();
+                                setActionState(1);
+                            }
                             break;
                         case 1:
                             if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                                intakeUp2();
+                            }
+                            if (actionTimer.getElapsedTimeSeconds() > 0.7) {
                                 follower.followPath(scorePreset1);
                                 scoringUp();
                                 setActionState(0);
@@ -305,13 +363,13 @@ public class Specimen_optimized extends OpMode {
                             setActionState(1);
                             break;
                         case 1:
-                            if(actionTimer.getElapsedTimeSeconds() > 0) {
+                            if(actionTimer.getElapsedTimeSeconds() > 0.1) {
                                 scoringClawOpen();
                                 setActionState(2);
                             }
                             break;
                         case 2:
-                            if(actionTimer.getElapsedTimeSeconds() > 0) {
+                            if(actionTimer.getElapsedTimeSeconds() > 0.2) {
                                 scoringHome();
                                 setActionState(3);
                             }
@@ -330,71 +388,97 @@ public class Specimen_optimized extends OpMode {
             case 5:
                 switch (actionState) {
                     case 0:
-                        intakeUp();
-                        setActionState(1);
+                        if (!follower.isBusy()) {
+                            follower.followPath(align2);
+                            setActionState(1);
+                        }
                         break;
                     case 1:
+                        if (actionTimer.getElapsedTimeSeconds() > waitPickup){
+                            intakeUp1();
+                            setActionState(2);
+                        }
+                        break;
+                    case 2:
                         if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                            intakeUp2();
+                        }
+                        if (actionTimer.getElapsedTimeSeconds() > 0.7) {
                             follower.followPath(scorePreset2);
                             scoringUp();
                             setActionState(0);
                             setPathState(6);
                         }
                         break;
+
                 }
                 break;
             case 6:
-                if(!follower.isBusy()) {
-                    switch (actionState) {
-                        case 0:
+                switch (actionState) {
+                    case 0:
+                        if(!follower.isBusy()) {
                             scoringDown();
                             setActionState(1);
-                            break;
-                        case 1:
-                            if(actionTimer.getElapsedTimeSeconds() > 0) {
-                                scoringClawOpen();
-                                setActionState(2);
-                            }
-                            break;
-                        case 2:
-                            if(actionTimer.getElapsedTimeSeconds() > 0) {
-                                scoringHome();
-                                setActionState(3);
-                            }
-                            break;
-                        case 3:
-                            if(actionTimer.getElapsedTimeSeconds() > 0.1) {
-                                setActionState(0);
-                                follower.followPath(grabPreset3);
-                                intakeHome();
-                                setPathState(7);
-                            }
-                            break;
-                    }
+                        }
+                        break;
+                    case 1:
+                        if(actionTimer.getElapsedTimeSeconds() > 0) {
+                            scoringClawOpen();
+                            setActionState(2);
+                        }
+                        break;
+                    case 2:
+                        if(actionTimer.getElapsedTimeSeconds() > 0.2) {
+                            scoringHome();
+                            setActionState(3);
+                        }
+                        break;
+                    case 3:
+                        if(actionTimer.getElapsedTimeSeconds() > 0.1) {
+                            setActionState(0);
+                            follower.followPath(grabPreset3);
+                            intakeHome();
+                            setPathState(7);
+                        }
+                        break;
                 }
                 break;
             case 7:
                 switch (actionState) {
                     case 0:
-                        intakeUp();
-                        setActionState(1);
+                        if (!follower.isBusy()) {
+                            follower.followPath(align3);
+                            setActionState(1);
+                        }
                         break;
                     case 1:
+                        if (actionTimer.getElapsedTimeSeconds() > waitPickup){
+                            intakeUp1();
+                            setActionState(2);
+                        }
+                        break;
+                    case 2:
                         if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                            intakeUp2();
+                        }
+                        if (actionTimer.getElapsedTimeSeconds() > 0.7) {
                             follower.followPath(scorePreset3);
                             scoringUp();
                             setActionState(0);
                             setPathState(8);
                         }
                         break;
+
                 }
                 break;
             case 8:
                 if(!follower.isBusy()) {
                     switch (actionState) {
                         case 0:
-                            scoringDown();
-                            setActionState(1);
+                            if(!follower.isBusy()) {
+                                scoringDown();
+                                setActionState(1);
+                            }
                             break;
                         case 1:
                             if(actionTimer.getElapsedTimeSeconds() > 0) {
@@ -403,7 +487,7 @@ public class Specimen_optimized extends OpMode {
                             }
                             break;
                         case 2:
-                            if(actionTimer.getElapsedTimeSeconds() > 0) {
+                            if(actionTimer.getElapsedTimeSeconds() > 0.2) {
                                 scoringHome();
                                 setActionState(3);
                             }
@@ -422,52 +506,33 @@ public class Specimen_optimized extends OpMode {
             case 9:
                 switch (actionState) {
                     case 0:
-                        intakeUp();
-                        setActionState(1);
-                        break;
-                    case 1:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
-                            follower.followPath(scorePreset4);
-                            scoringUp();
-                            setActionState(0);
-                            setPathState(10);
+                        if (!follower.isBusy()) {
+                            follower.followPath(align4);
+                            setActionState(1);
                         }
                         break;
-                }
-                break;
-            case 10:
-                if(!follower.isBusy()) {
-                    switch (actionState) {
-                        case 0:
-                            scoringDown();
-                            setActionState(1);
-                            break;
-                        case 1:
-                            if(actionTimer.getElapsedTimeSeconds() > 0) {
-                                scoringClawOpen();
-                                setActionState(2);
-                            }
-                            break;
-                        case 2:
-                            if(actionTimer.getElapsedTimeSeconds() > 0) {
-                                scoringHome();
-                                setActionState(3);
-                            }
-                            break;
-                        case 3:
-                            if(actionTimer.getElapsedTimeSeconds() > 0.1) {
-                                setActionState(0);
-                                follower.followPath(park);
-                                intakeHome();
-                                setPathState(11);
-                            }
-                            break;
-                    }
-                }
-                break;
-            case 11:
-                if(!follower.isBusy()) {
-                    setPathState(-1);
+                    case 1:
+                        if (actionTimer.getElapsedTimeSeconds() > waitPickup){
+                            intakeUp1();
+                            setActionState(2);
+                        }
+                        break;
+                    case 2:
+                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                            intakeUp2();
+                        }
+                        if (actionTimer.getElapsedTimeSeconds() > 0.7) {
+                            follower.followPath(park);
+
+                            outake.slidesTarget = Values.OUTSLIDES_MIN;
+                            outake.clawTarget = Values.CLAW_CLOSED;
+                            outake.wristTarget = Values.OUTWRIST_GRAB;
+                            outake.rotateTarget = Values.OUTROTATE_GRAB;
+                            outake.pivotTarget = Values.OUTPIVOT_GRAB;
+                            setActionState(0);
+                            setPathState(-1);
+                        }
+                        break;
                 }
                 break;
         }
@@ -489,6 +554,7 @@ public class Specimen_optimized extends OpMode {
     @Override
     public void loop() {
         outake.move();
+        intake.move("none");
 
         // These loop the movements of the robot
         follower.update();
@@ -497,6 +563,7 @@ public class Specimen_optimized extends OpMode {
         // Feedback to Driver Hub
         outake.telemetry();
         telemetry.addData("path state", pathState);
+        telemetry.addData("action state", actionState);
         telemetry.addData("x", follower.getPose().getX());
         telemetry.addData("y", follower.getPose().getY());
         telemetry.addData("heading", follower.getPose().getHeading());
@@ -532,8 +599,6 @@ public class Specimen_optimized extends OpMode {
         INCLAW = hardwareInitializer.getServo("INCLAW");
         HSLIDES_F = hardwareInitializer.getServo("HSLIDESF");
         HSLIDES_B = hardwareInitializer.getServo("HSLIDESB");
-
-
 
         outake = new OuttakeControl(
                 OUTPIVOT_L,
