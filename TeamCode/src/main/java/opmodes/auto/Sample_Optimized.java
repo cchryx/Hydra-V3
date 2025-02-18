@@ -50,30 +50,28 @@ public class Sample_Optimized extends OpMode {
 
         scorePreload = new Path(
                 // Line 1
-                new BezierCurve(
-                        new Point(9.000, 85.000, Point.CARTESIAN),
-                        new Point(12.000, 116.000, Point.CARTESIAN),
-                        new Point(18.000, 125.000, Point.CARTESIAN)
+                new BezierLine(
+                        new Point(9.000, 111.000, Point.CARTESIAN),
+                        new Point(16.000, 127.000, Point.CARTESIAN)
                 )
         );
         scorePreload.setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-45));
 
         grabPreset1 = new Path(
-                // Line 2
-                new BezierCurve(
-                        new Point(18.000, 125.000, Point.CARTESIAN),
-                        new Point(23.000, 120.000, Point.CARTESIAN),
-                        new Point(35.000, 124.000, Point.CARTESIAN)
+                // Line 2 - Preset 1 Pickup
+                new BezierLine(
+                        new Point(16.000, 127.000, Point.CARTESIAN),
+                        new Point(34.000, 124.000, Point.CARTESIAN)
                 )
         );
         grabPreset1.setConstantHeadingInterpolation(Math.toRadians(0));
 
         scorePreset1 = new Path(
                 // Line 3
-                new BezierCurve(
-                        new Point(35.000, 118.000, Point.CARTESIAN),
-                        new Point(22.232, 119.507, Point.CARTESIAN),
-                        new Point(18.000, 125.000, Point.CARTESIAN)
+                new BezierLine(
+                        new Point(32.000, 124.000, Point.CARTESIAN),
+//                        new Point(22.232, 119.507, Point.CARTESIAN),
+                        new Point(18.000, 127.000, Point.CARTESIAN)
                 )
         );
         scorePreset1.setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-45));
@@ -81,7 +79,7 @@ public class Sample_Optimized extends OpMode {
         grabPreset2 = new Path(
                 // Line 4
                 new BezierCurve(
-                        new Point(18.000, 125.000, Point.CARTESIAN),
+                        new Point(16.000, 127.000, Point.CARTESIAN),
                         new Point(26.503, 127.797, Point.CARTESIAN),
                         new Point(35.000, 136.000, Point.CARTESIAN)
                 )
@@ -273,220 +271,220 @@ public class Sample_Optimized extends OpMode {
                 }
                 break;
             case 3:
-                switch (actionState){
-                    case 0:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
-                            scoringUp();
-                            setActionState(1);
-                        }
-                        break;
-                    case 1:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.3) {
-                            scoringUp2();
-                            setActionState(0);
-                            setPathState(4);
-                        }
-                        break;
-                }
+//                switch (actionState){
+//                    case 0:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+//                            scoringUp();
+//                            setActionState(1);
+//                        }
+//                        break;
+//                    case 1:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.3) {
+//                            scoringUp2();
+//                            setActionState(0);
+//                            setPathState(4);
+//                        }
+//                        break;
+//                }
                 break;
             case 4:
-                switch (actionState) {
-                    case 0:
-                        if(!follower.isBusy()) {
-                            scoringClawOpen();
-                            setActionState(1);
-                        }
-                        break;
-                    case 1:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
-                            outtakeHome1();
-                            follower.followPath(grabPreset2);
-                            intake();
-                            setActionState(2);
-                        }
-                        break;
-                    case 2:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
-                            outtakeHome2();
-                            setActionState(3);
-                        }
-                        break;
-                    case 3:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
-                            outtakeHome3();
-                            setActionState(0);
-                            setPathState(5);
-                        }
-                        break;
-                }
+//                switch (actionState) {
+//                    case 0:
+//                        if(!follower.isBusy()) {
+//                            scoringClawOpen();
+//                            setActionState(1);
+//                        }
+//                        break;
+//                    case 1:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+//                            outtakeHome1();
+//                            follower.followPath(grabPreset2);
+//                            intake();
+//                            setActionState(2);
+//                        }
+//                        break;
+//                    case 2:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
+//                            outtakeHome2();
+//                            setActionState(3);
+//                        }
+//                        break;
+//                    case 3:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
+//                            outtakeHome3();
+//                            setActionState(0);
+//                            setPathState(5);
+//                        }
+//                        break;
+//                }
                 break;
             case 5:
-                switch (actionState) {
-                    case 0:
-                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 1) {
-                            intakeDown();
-                            setActionState(1);
-                        }
-                        break;
-                    case 1:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.4) {
-                            transfer1();
-                            setActionState(2);
-                        }
-                        break;
-                    case 2:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.3) {
-                            transfer2();
-                            setActionState(3);
-                        }
-                        break;
-                    case 3:
-                        if (actionTimer.getElapsedTimeSeconds() > 1) {
-                            transfer3();
-                            follower.followPath(scorePreset2);
-                            setActionState(0);
-                            setPathState(6);
-                        }
-                        break;
-
-                }
+//                switch (actionState) {
+//                    case 0:
+//                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 1) {
+//                            intakeDown();
+//                            setActionState(1);
+//                        }
+//                        break;
+//                    case 1:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.4) {
+//                            transfer1();
+//                            setActionState(2);
+//                        }
+//                        break;
+//                    case 2:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.3) {
+//                            transfer2();
+//                            setActionState(3);
+//                        }
+//                        break;
+//                    case 3:
+//                        if (actionTimer.getElapsedTimeSeconds() > 1) {
+//                            transfer3();
+//                            follower.followPath(scorePreset2);
+//                            setActionState(0);
+//                            setPathState(6);
+//                        }
+//                        break;
+//
+//                }
                 break;
             case 6:
-                switch (actionState){
-                    case 0:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
-                            scoringUp();
-                            setActionState(1);
-                        }
-                        break;
-                    case 1:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.3) {
-                            scoringUp2();
-                            setActionState(0);
-                            setPathState(7);
-                        }
-                        break;
-                }
+//                switch (actionState){
+//                    case 0:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+//                            scoringUp();
+//                            setActionState(1);
+//                        }
+//                        break;
+//                    case 1:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.3) {
+//                            scoringUp2();
+//                            setActionState(0);
+//                            setPathState(7);
+//                        }
+//                        break;
+//                }
                 break;
             case 7:
-                switch (actionState) {
-                    case 0:
-                        if(!follower.isBusy()) {
-                            scoringClawOpen();
-                            setActionState(1);
-                        }
-                        break;
-                    case 1:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
-                            outtakeHome1();
-                            follower.followPath(grabPreset3);
-                            intake.clawTarget = Values.CLAW_OPENED;
-                            intake.pivotTarget = Values.INPIVOT_SUB;
-                            intake.rotateTarget = Values.INROTATE_SUB;
-                            intake.wristTarget = sideSample;
-                            setActionState(2);
-                        }
-                        break;
-                    case 2:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
-                            outtakeHome2();
-                            setActionState(3);
-                        }
-                        break;
-                    case 3:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
-                            outtakeHome3();
-                            setActionState(0);
-                            setPathState(8);
-                        }
-                        break;
-                }
-                break;
+//                switch (actionState) {
+//                    case 0:
+//                        if(!follower.isBusy()) {
+//                            scoringClawOpen();
+//                            setActionState(1);
+//                        }
+//                        break;
+//                    case 1:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+//                            outtakeHome1();
+//                            follower.followPath(grabPreset3);
+//                            intake.clawTarget = Values.CLAW_OPENED;
+//                            intake.pivotTarget = Values.INPIVOT_SUB;
+//                            intake.rotateTarget = Values.INROTATE_SUB;
+//                            intake.wristTarget = sideSample;
+//                            setActionState(2);
+//                        }
+//                        break;
+//                    case 2:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
+//                            outtakeHome2();
+//                            setActionState(3);
+//                        }
+//                        break;
+//                    case 3:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
+//                            outtakeHome3();
+//                            setActionState(0);
+//                            setPathState(8);
+//                        }
+//                        break;
+//                }
+//                break;
 
             case 8:
-                switch (actionState) {
-                    case 0:
-                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 1) {
-                            intake.clawTarget = Values.CLAW_OPENED;
-                            intake.pivotTarget = Values.INPIVOT_SUB_G;
-                            intake.rotateTarget = Values.INROTATE_SUB_G;
-                            intake.wristTarget = sideSample;
-                            setActionState(1);
-                        }
-                        break;
-                    case 1:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.4) {
-                            intake.clawTarget = Values.CLAW_CLOSED;
-                            outake.rotateTarget = Values.OUTROTATE_TRANSFER;
-                            outake.clawTarget = Values.CLAW_OPENED;
-                            outake.pivotTarget = Values.OUTPIVOT_TRANSFER;
-                            setActionState(2);
-                        }
-                        break;
-                    case 2:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.3) {
-                            transfer2();
-                            setActionState(3);
-                        }
-                        break;
-                    case 3:
-                        if (actionTimer.getElapsedTimeSeconds() > 1) {
-                            transfer3();
-                            follower.followPath(scorePreset3);
-                            setActionState(0);
-                            setPathState(9);
-                        }
-                        break;
-                }
-                break;
+//                switch (actionState) {
+//                    case 0:
+//                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 1) {
+//                            intake.clawTarget = Values.CLAW_OPENED;
+//                            intake.pivotTarget = Values.INPIVOT_SUB_G;
+//                            intake.rotateTarget = Values.INROTATE_SUB_G;
+//                            intake.wristTarget = sideSample;
+//                            setActionState(1);
+//                        }
+//                        break;
+//                    case 1:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.4) {
+//                            intake.clawTarget = Values.CLAW_CLOSED;
+//                            outake.rotateTarget = Values.OUTROTATE_TRANSFER;
+//                            outake.clawTarget = Values.CLAW_OPENED;
+//                            outake.pivotTarget = Values.OUTPIVOT_TRANSFER;
+//                            setActionState(2);
+//                        }
+//                        break;
+//                    case 2:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.3) {
+//                            transfer2();
+//                            setActionState(3);
+//                        }
+//                        break;
+//                    case 3:
+//                        if (actionTimer.getElapsedTimeSeconds() > 1) {
+//                            transfer3();
+//                            follower.followPath(scorePreset3);
+//                            setActionState(0);
+//                            setPathState(9);
+//                        }
+//                        break;
+//                }
+//                break;
             case 9:
-                switch (actionState){
-                    case 0:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
-                            scoringUp();
-                            setActionState(1);
-                        }
-                        break;
-                    case 1:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.3) {
-                            scoringUp2();
-                            setActionState(0);
-                            setPathState(10);
-                        }
-                        break;
-                }
-                break;
+//                switch (actionState){
+//                    case 0:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+//                            scoringUp();
+//                            setActionState(1);
+//                        }
+//                        break;
+//                    case 1:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.3) {
+//                            scoringUp2();
+//                            setActionState(0);
+//                            setPathState(10);
+//                        }
+//                        break;
+//                }
+//                break;
             case 10:
-                switch (actionState) {
-                    case 0:
-                        if(!follower.isBusy()) {
-                            scoringClawOpen();
-                            setActionState(1);
-                        }
-                        break;
-                    case 1:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
-                            outtakeHome1();
-//                            follower.followPath(park);
-                            intake();
-                            setActionState(2);
-                        }
-                        break;
-                    case 2:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
-                            outtakeHome2();
-                            setActionState(3);
-                        }
-                        break;
-                    case 3:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
-                            outtakeHome3();
-                            setActionState(0);
-                            setPathState(-1);
-                        }
-                        break;
-                }
-                break;
+//                switch (actionState) {
+//                    case 0:
+//                        if(!follower.isBusy()) {
+//                            scoringClawOpen();
+//                            setActionState(1);
+//                        }
+//                        break;
+//                    case 1:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+//                            outtakeHome1();
+////                            follower.followPath(park);
+//                            intake();
+//                            setActionState(2);
+//                        }
+//                        break;
+//                    case 2:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
+//                            outtakeHome2();
+//                            setActionState(3);
+//                        }
+//                        break;
+//                    case 3:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5){
+//                            outtakeHome3();
+//                            setActionState(0);
+//                            setPathState(-1);
+//                        }
+//                        break;
+//                }
+//                break;
         }
     }
 
