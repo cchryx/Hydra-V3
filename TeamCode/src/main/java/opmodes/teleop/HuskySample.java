@@ -37,13 +37,10 @@ public class HuskySample extends OpMode {
     boolean pDropoff = false;
     boolean pAngle = false;
 
-    HuskyControl huskyControl = new HuskyControl(hardwareMap, "blue");
 
     @Override
     public void init() {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-
-
 
         // Initialize hardware
         hardwareInitializer = new HardwareInitializer();
@@ -97,6 +94,8 @@ public class HuskySample extends OpMode {
         mecanumDrive.init();
         outake.init();
         intake.init();
+
+        HuskyControl huskyControl = new HuskyControl(hardwareMap, "blue");
     }
 
     @Override
