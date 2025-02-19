@@ -111,15 +111,15 @@ public class Specimen_4 extends OpMode {
                         new BezierCurve(
                                 new Point(30.264, 20.270, Point.CARTESIAN),
                                 new Point(67.566, 28.152, Point.CARTESIAN),
-                                new Point(73.196, 17.877, Point.CARTESIAN)
+                                new Point(73.196, 19.144, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 8
                         new BezierCurve(
-                                new Point(73.196, 17.877, Point.CARTESIAN),
-                                new Point(16.751, 14.076, Point.CARTESIAN),
+                                new Point(73.196, 19.144, Point.CARTESIAN),
+                                new Point(17.032, 15.906, Point.CARTESIAN),
                                 new Point(29.560, 31.812, Point.CARTESIAN),
                                 new Point(16.891, 45.607, Point.CARTESIAN)
                         )
@@ -143,7 +143,7 @@ public class Specimen_4 extends OpMode {
                         new Point(10.839, 45.748, Point.CARTESIAN),
                         new Point(28.293, 44.762, Point.CARTESIAN),
                         new Point(13.372, 82.205, Point.CARTESIAN),
-                        new Point(40.258, 87.554, Point.CARTESIAN)
+                        new Point(40.258, 94.170, Point.CARTESIAN)
                 )
         );
         scorePreset1.setConstantHeadingInterpolation(Math.toRadians(0));
@@ -151,7 +151,7 @@ public class Specimen_4 extends OpMode {
         grabPreset2 = new Path(
                 // Line 11
                 new BezierCurve(
-                        new Point(40.258, 87.554, Point.CARTESIAN),
+                        new Point(40.258, 94.170, Point.CARTESIAN),
                         new Point(25.619, 81.079, Point.CARTESIAN),
                         new Point(31.812, 54.616, Point.CARTESIAN),
                         new Point(16.328, 49.408, Point.CARTESIAN)
@@ -163,7 +163,7 @@ public class Specimen_4 extends OpMode {
                 // Line 12
                 new BezierLine(
                         new Point(16.328, 49.408, Point.CARTESIAN),
-                        new Point(10.276, 48.704, Point.CARTESIAN)
+                        new Point(10.839, 48.985, Point.CARTESIAN)
                 )
         );
         align2.setConstantHeadingInterpolation(Math.toRadians(4));
@@ -171,10 +171,10 @@ public class Specimen_4 extends OpMode {
         scorePreset2 = new Path(
                 // Line 13
                 new BezierCurve(
-                        new Point(10.276, 48.704, Point.CARTESIAN),
+                        new Point(10.839, 48.985, Point.CARTESIAN),
                         new Point(28.856, 44.481, Point.CARTESIAN),
                         new Point(13.935, 82.768, Point.CARTESIAN),
-                        new Point(39.977, 86.710, Point.CARTESIAN)
+                        new Point(40.258, 92.903, Point.CARTESIAN)
                 )
         );
         scorePreset2.setConstantHeadingInterpolation(Math.toRadians(5));
@@ -182,7 +182,7 @@ public class Specimen_4 extends OpMode {
         grabPreset3 = new Path(
                 // Line 14
                 new BezierCurve(
-                        new Point(39.977, 86.710, Point.CARTESIAN),
+                        new Point(40.258, 92.903, Point.CARTESIAN),
                         new Point(24.915, 80.798, Point.CARTESIAN),
                         new Point(31.390, 54.616, Point.CARTESIAN),
                         new Point(16.751, 49.689, Point.CARTESIAN)
@@ -194,7 +194,7 @@ public class Specimen_4 extends OpMode {
                 // Line 15
                 new BezierLine(
                         new Point(16.751, 49.689, Point.CARTESIAN),
-                        new Point(9.431, 48.704, Point.CARTESIAN)
+                        new Point(10.839, 48.985, Point.CARTESIAN)
                 )
         );
         align3.setConstantHeadingInterpolation(Math.toRadians(7));
@@ -202,10 +202,10 @@ public class Specimen_4 extends OpMode {
         scorePreset3 = new Path(
                 // Line 16
                 new BezierCurve(
-                        new Point(9.431, 48.704, Point.CARTESIAN),
+                        new Point(10.839, 48.985, Point.CARTESIAN),
                         new Point(28.716, 44.622, Point.CARTESIAN),
                         new Point(13.232, 82.065, Point.CARTESIAN),
-                        new Point(39.977, 85.584, Point.CARTESIAN)
+                        new Point(40.399, 91.777, Point.CARTESIAN)
                 )
         );
         scorePreset3.setConstantHeadingInterpolation(Math.toRadians(7));
@@ -213,7 +213,7 @@ public class Specimen_4 extends OpMode {
         grabPreset4 = new Path(
                 // Line 17
                 new BezierCurve(
-                        new Point(39.977, 85.584, Point.CARTESIAN),
+                        new Point(40.399, 91.777, Point.CARTESIAN),
                         new Point(25.337, 81.220, Point.CARTESIAN),
                         new Point(31.531, 54.616, Point.CARTESIAN),
                         new Point(16.751, 49.548, Point.CARTESIAN)
@@ -221,25 +221,27 @@ public class Specimen_4 extends OpMode {
         );
         grabPreset4.setConstantHeadingInterpolation(Math.toRadians(7));
 
-        align4 = new Path(
-                // Line 18
-                new BezierLine(
-                        new Point(16.751, 49.548, Point.CARTESIAN),
-                        new Point(9.009, 48.563, Point.CARTESIAN)
-                )
-        );
-        align4.setConstantHeadingInterpolation(Math.toRadians(7));
-
-        park = new Path(
-                // Line 19
-                new BezierLine(
-                        new Point(9.009, 48.563, Point.CARTESIAN),
-                        new Point(14.639, 53.208, Point.CARTESIAN)
-                )
-        );
-        park.setLinearHeadingInterpolation(Math.toRadians(7), Math.toRadians(45));
+//        align4 = new Path(
+//                // Line 18
+//                new BezierLine(
+//                        new Point(16.751, 49.548, Point.CARTESIAN),
+//                        new Point(9.009, 48.563, Point.CARTESIAN)
+//                )
+//        );
+//        align4.setConstantHeadingInterpolation(Math.toRadians(7));
+//
+//        park = new Path(
+//                // Line 19
+//                new BezierLine(
+//                        new Point(9.009, 48.563, Point.CARTESIAN),
+//                        new Point(14.639, 53.208, Point.CARTESIAN)
+//                )
+//        );
+//        park.setLinearHeadingInterpolation(Math.toRadians(7), Math.toRadians(45));
 
     }
+
+    public int intakeOffset = 70;
 
 
     public void scoringUp() {
@@ -256,7 +258,7 @@ public class Specimen_4 extends OpMode {
         outake.clawTarget = Values.CLAW_OPENED;
     }
     public void scoringHome() {
-        outake.slidesTarget = Values.OUTSLIDES_MIN;
+        outake.slidesTarget = Values.OUTSLIDES_MIN + intakeOffset;
         outake.clawTarget = Values.CLAW_OPENED;
         outake.wristTarget = Values.OUTWRIST_GRAB;
         outake.rotateTarget = Values.OUTROTATE_GRAB;
@@ -276,7 +278,7 @@ public class Specimen_4 extends OpMode {
     }
 
     public void intakeUp2() {
-        outake.slidesTarget = Values.OUTSLIDES_GRAB;
+        outake.slidesTarget = Values.OUTSLIDES_GRAB + intakeOffset;
     }
 
     public void intakeExtend() {
@@ -497,44 +499,44 @@ public class Specimen_4 extends OpMode {
                                 setActionState(0);
                                 follower.followPath(grabPreset4);
                                 intakeHome();
-                                setPathState(9);
+//                                setPathState(-1);
                             }
                             break;
                     }
                 }
                 break;
-            case 9:
-                switch (actionState) {
-                    case 0:
-                        if (!follower.isBusy()) {
-                            follower.followPath(align4);
-                            setActionState(1);
-                        }
-                        break;
-                    case 1:
-                        if (actionTimer.getElapsedTimeSeconds() > waitPickup){
-                            intakeUp1();
-                            setActionState(2);
-                        }
-                        break;
-                    case 2:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
-                            intakeUp2();
-                        }
-                        if (actionTimer.getElapsedTimeSeconds() > 0.7) {
-                            follower.followPath(park);
-
-                            outake.slidesTarget = Values.OUTSLIDES_MIN;
-                            outake.clawTarget = Values.CLAW_CLOSED;
-                            outake.wristTarget = Values.OUTWRIST_GRAB;
-                            outake.rotateTarget = Values.OUTROTATE_GRAB;
-                            outake.pivotTarget = Values.OUTPIVOT_GRAB;
-                            setActionState(0);
-                            setPathState(-1);
-                        }
-                        break;
-                }
-                break;
+//            case 9:
+//                switch (actionState) {
+//                    case 0:
+//                        if (!follower.isBusy()) {
+//                            follower.followPath(align4);
+//                            setActionState(1);
+//                        }
+//                        break;
+//                    case 1:
+//                        if (actionTimer.getElapsedTimeSeconds() > waitPickup){
+//                            intakeUp1();
+//                            setActionState(2);
+//                        }
+//                        break;
+//                    case 2:
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+//                            intakeUp2();
+//                        }
+//                        if (actionTimer.getElapsedTimeSeconds() > 0.7) {
+//                            follower.followPath(park);
+//
+//                            outake.slidesTarget = Values.OUTSLIDES_MIN;
+//                            outake.clawTarget = Values.CLAW_CLOSED;
+//                            outake.wristTarget = Values.OUTWRIST_GRAB;
+//                            outake.rotateTarget = Values.OUTROTATE_GRAB;
+//                            outake.pivotTarget = Values.OUTPIVOT_GRAB;
+//                            setActionState(0);
+//                            setPathState(-1);
+//                        }
+//                        break;
+//                }
+//                break;
         }
     }
 
