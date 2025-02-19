@@ -1,5 +1,6 @@
 package components;
 
+
 public class Values {
     /////////////
     // OUTTAKE //
@@ -22,7 +23,7 @@ public class Values {
     public static double OUTROTATE_MIN = 0;
     public static double OUTROTATE_MAX = 1;
     public static double OUTROTATE_INIT = 0;
-    public static double OUTROTATE_GRAB = 0.5;
+    public static double OUTROTATE_GRAB = 0.46;
     public static double OUTROTATE_HCHAM = 0.8;
     public static double OUTROTATE_HBASK = 0.9;
     public static double OUTROTATE_TRANSFER = 0.12;
@@ -81,6 +82,7 @@ public class Values {
     public static double HSLIDES_INCR = 0.03;
     public static double HSLIDES_SUB = 0.4;
 
+
     ////////////
     // SHARED //
     ////////////
@@ -88,6 +90,4 @@ public class Values {
     // CLAW
     public static double CLAW_CLOSED = 1;
     public static double CLAW_OPENED = 0.75;
-
-
 }
