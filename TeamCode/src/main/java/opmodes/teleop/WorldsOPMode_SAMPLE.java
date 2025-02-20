@@ -188,7 +188,7 @@ public class WorldsOPMode_SAMPLE extends OpMode {
                         if (autoTime.milliseconds() > 100) {
                             autoProcess_d = "chamber";
                             setAutoStep_d(2);
-                            outake.slidesTarget = Values.OUTSLIDES_MIN;
+                            outake.slidesTarget = Values.OUTSLIDES_GRAB;
                             outake.clawTarget = Values.CLAW_OPENED;
                             outake.wristTarget = Values.OUTWRIST_GRAB;
                             outake.rotateTarget = Values.OUTROTATE_GRAB;
@@ -348,7 +348,7 @@ public class WorldsOPMode_SAMPLE extends OpMode {
                 switch (autoStep_d) {
                     case 1:
                         if (chamber && !pChamber && autoTime.milliseconds() > 100) {
-                            outake.slidesTarget = Values.OUTSLIDES_MIN;
+                            outake.slidesTarget = Values.OUTSLIDES_GRAB;
                             outake.clawTarget = Values.CLAW_OPENED;
                             outake.wristTarget = Values.OUTWRIST_GRAB;
                             outake.rotateTarget = Values.OUTROTATE_GRAB;
@@ -363,8 +363,8 @@ public class WorldsOPMode_SAMPLE extends OpMode {
                         }
                         break;
                     case 20001:
-                        if (autoTime.milliseconds() > 100) {
-                            outake.slidesTarget = Values.OUTSLIDES_GRAB;
+                        if (autoTime.milliseconds() > 300) {
+                            outake.slidesTarget = Values.OUTSLIDES_GRAB + 150;
                             setAutoStep_d(3);
                         }
                         break;

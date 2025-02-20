@@ -12,7 +12,7 @@ public class Values {
     public static double OUTPIVOT_OFFSET = 0.03;
     public static double OUTPIVOT_INCR = 0.03;
     public static double OUTPIVOT_INIT = 0.02;
-    public static double OUTPIVOT_GRAB = 0.12;
+    public static double OUTPIVOT_GRAB = 0;
     public static double OUTPIVOT_HCHAM = 0.82;
     public static double OUTPIVOT_HCHAM_S = 0.9;
     public static double OUTPIVOT_HBASK = 0.4;
@@ -23,7 +23,7 @@ public class Values {
     public static double OUTROTATE_MIN = 0;
     public static double OUTROTATE_MAX = 1;
     public static double OUTROTATE_INIT = 0;
-    public static double OUTROTATE_GRAB = 0.46;
+    public static double OUTROTATE_GRAB = 0.2;
     public static double OUTROTATE_HCHAM = 0.8;
     public static double OUTROTATE_HBASK = 0.9;
     public static double OUTROTATE_TRANSFER = 0.12;
@@ -37,7 +37,7 @@ public class Values {
     // SLIDES
     public static int OUTSLIDES_MIN = 0;
     public static int OUTSLIDES_MAX = 900;
-    public static int OUTSLIDES_GRAB = 150;
+    public static int OUTSLIDES_GRAB = 85;
     public static int OUTSLIDES_HCHAM = 450;
 
 
@@ -66,7 +66,7 @@ public class Values {
     public static double INWRIST_INIT = 0.47;
     public static double INWRIST_MIN = 0;
     public static double INWRIST_MAX = 1;
-    public static double INWRIST_INCR = 0.008;
+    public static double INWRIST_INCR = 0.01;
 
     // ROTATE
     public static double INROTATE_INIT = 0;
@@ -79,7 +79,7 @@ public class Values {
     public static double HSLIDES_OFFSET = 0.03;
     public static double HSLIDES_MIN = 0;
     public static double HSLIDES_MAX = 0.7;
-    public static double HSLIDES_INCR = 0.03;
+    public static double HSLIDES_INCR = 0.01;
     public static double HSLIDES_SUB = 0.4;
 
 

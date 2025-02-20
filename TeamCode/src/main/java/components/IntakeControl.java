@@ -83,7 +83,7 @@ public class IntakeControl {
 
 
         if(gamepad2.left_bumper) {
-            throttle = 0.1;
+            throttle = 0.2;
         } else {
             throttle = 1;
         }
@@ -137,11 +137,11 @@ public class IntakeControl {
         }
 
         if (gamepad2.right_trigger > 0) {
-            double i = Values.INWRIST_INCR * throttle * gamepad2.right_trigger;
+            double i = Values.INWRIST_INCR * gamepad2.right_trigger;
             double newWristPos = wristPosition + i;
             wristTarget = Math.min(newWristPos, Values.INWRIST_MAX);
         } else if (gamepad2.left_trigger > 0) {
-            double i = Values.INWRIST_INCR * throttle * -gamepad2.left_trigger;
+            double i = Values.INWRIST_INCR * -gamepad2.left_trigger;
             double newWristPos = wristPosition + i;
             wristTarget = Math.max(newWristPos, Values.INWRIST_MIN);
         }

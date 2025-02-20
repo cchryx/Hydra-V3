@@ -121,7 +121,7 @@ public class Specimen_4 extends OpMode {
                                 new Point(73.196, 19.144, Point.CARTESIAN),
                                 new Point(17.032, 15.906, Point.CARTESIAN),
                                 new Point(29.560, 31.812, Point.CARTESIAN),
-                                new Point(16.891, 45.607, Point.CARTESIAN)
+                                new Point(16.891, 47.015, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
@@ -130,8 +130,8 @@ public class Specimen_4 extends OpMode {
         align1 = new Path(
                 // Line 9
                 new BezierLine(
-                        new Point(16.891, 45.607, Point.CARTESIAN),
-                        new Point(10.839, 45.748, Point.CARTESIAN)
+                        new Point(16.891, 47.015, Point.CARTESIAN),
+                        new Point(10.276, 46.874, Point.CARTESIAN)
                 )
 
         );
@@ -140,10 +140,10 @@ public class Specimen_4 extends OpMode {
         scorePreset1 = new Path(
                 // Line 10
                 new BezierCurve(
-                        new Point(10.839, 45.748, Point.CARTESIAN),
+                        new Point(10.276, 46.874, Point.CARTESIAN),
                         new Point(28.293, 44.762, Point.CARTESIAN),
                         new Point(13.372, 82.205, Point.CARTESIAN),
-                        new Point(40.258, 94.170, Point.CARTESIAN)
+                        new Point(41.525, 105.572, Point.CARTESIAN)
                 )
         );
         scorePreset1.setConstantHeadingInterpolation(Math.toRadians(0));
@@ -151,10 +151,10 @@ public class Specimen_4 extends OpMode {
         grabPreset2 = new Path(
                 // Line 11
                 new BezierCurve(
-                        new Point(40.258, 94.170, Point.CARTESIAN),
+                        new Point(41.525, 105.572, Point.CARTESIAN),
                         new Point(25.619, 81.079, Point.CARTESIAN),
-                        new Point(31.812, 54.616, Point.CARTESIAN),
-                        new Point(16.328, 49.408, Point.CARTESIAN)
+                        new Point(33.783, 47.718, Point.CARTESIAN),
+                        new Point(16.328, 49.548, Point.CARTESIAN)
                 )
         );
         grabPreset2.setConstantHeadingInterpolation(Math.toRadians(4));
@@ -162,8 +162,8 @@ public class Specimen_4 extends OpMode {
         align2 = new Path(
                 // Line 12
                 new BezierLine(
-                        new Point(16.328, 49.408, Point.CARTESIAN),
-                        new Point(10.839, 48.985, Point.CARTESIAN)
+                        new Point(16.328, 49.548, Point.CARTESIAN),
+                        new Point(10.276, 49.548, Point.CARTESIAN)
                 )
         );
         align2.setConstantHeadingInterpolation(Math.toRadians(4));
@@ -171,10 +171,10 @@ public class Specimen_4 extends OpMode {
         scorePreset2 = new Path(
                 // Line 13
                 new BezierCurve(
-                        new Point(10.839, 48.985, Point.CARTESIAN),
+                        new Point(10.276, 49.548, Point.CARTESIAN),
                         new Point(28.856, 44.481, Point.CARTESIAN),
                         new Point(13.935, 82.768, Point.CARTESIAN),
-                        new Point(40.258, 92.903, Point.CARTESIAN)
+                        new Point(41.666, 103.601, Point.CARTESIAN)
                 )
         );
         scorePreset2.setConstantHeadingInterpolation(Math.toRadians(5));
@@ -182,10 +182,10 @@ public class Specimen_4 extends OpMode {
         grabPreset3 = new Path(
                 // Line 14
                 new BezierCurve(
-                        new Point(40.258, 92.903, Point.CARTESIAN),
+                        new Point(41.666, 103.601, Point.CARTESIAN),
                         new Point(24.915, 80.798, Point.CARTESIAN),
-                        new Point(31.390, 54.616, Point.CARTESIAN),
-                        new Point(16.751, 49.689, Point.CARTESIAN)
+                        new Point(33.220, 47.859, Point.CARTESIAN),
+                        new Point(16.328, 49.830, Point.CARTESIAN)
                 )
         );
         grabPreset3.setConstantHeadingInterpolation(Math.toRadians(5));
@@ -193,8 +193,8 @@ public class Specimen_4 extends OpMode {
         align3 = new Path(
                 // Line 15
                 new BezierLine(
-                        new Point(16.751, 49.689, Point.CARTESIAN),
-                        new Point(10.839, 48.985, Point.CARTESIAN)
+                        new Point(16.328, 49.830, Point.CARTESIAN),
+                        new Point(10.276, 49.548, Point.CARTESIAN)
                 )
         );
         align3.setConstantHeadingInterpolation(Math.toRadians(7));
@@ -202,10 +202,10 @@ public class Specimen_4 extends OpMode {
         scorePreset3 = new Path(
                 // Line 16
                 new BezierCurve(
-                        new Point(10.839, 48.985, Point.CARTESIAN),
+                        new Point(10.276, 49.548, Point.CARTESIAN),
                         new Point(28.716, 44.622, Point.CARTESIAN),
                         new Point(13.232, 82.065, Point.CARTESIAN),
-                        new Point(40.399, 91.777, Point.CARTESIAN)
+                        new Point(41.384, 101.490, Point.CARTESIAN)
                 )
         );
         scorePreset3.setConstantHeadingInterpolation(Math.toRadians(7));
@@ -213,10 +213,10 @@ public class Specimen_4 extends OpMode {
         grabPreset4 = new Path(
                 // Line 17
                 new BezierCurve(
-                        new Point(40.399, 91.777, Point.CARTESIAN),
+                        new Point(41.384, 101.490, Point.CARTESIAN),
                         new Point(25.337, 81.220, Point.CARTESIAN),
-                        new Point(31.531, 54.616, Point.CARTESIAN),
-                        new Point(16.751, 49.548, Point.CARTESIAN)
+                        new Point(33.783, 47.437, Point.CARTESIAN),
+                        new Point(16.610, 50.111, Point.CARTESIAN)
                 )
         );
         grabPreset4.setConstantHeadingInterpolation(Math.toRadians(7));
@@ -241,7 +241,7 @@ public class Specimen_4 extends OpMode {
 
     }
 
-    public int intakeOffset = 70;
+    public int intakeOffset = 85;
 
 
     public void scoringUp() {
