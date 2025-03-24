@@ -34,6 +34,11 @@ public class WorldsOPMode_SAMPLE extends OpMode {
     boolean pTransfer = false;
     boolean pSubmersible = false;
     boolean pDropoff = false;
+    boolean pPickupFail = false;
+    double wristStore;
+    double turretStore;
+    double pivotStore;
+    double rotateStore;
 
     @Override
     public void init() {
@@ -108,13 +113,22 @@ public class WorldsOPMode_SAMPLE extends OpMode {
         outake.move();
         intake.move(autoProcess_i);
 
+        if (gamepad1.dpad_up) {
+            outake.slidesTarget += 10;
+        }
+
+        if (gamepad1.dpad_down) {
+            outake.slidesTarget -= 10;
+        }
+
         // Auto Stuff
-        boolean home = gamepad1.ps || gamepad2.ps;
+        boolean home = gamepad1.x || gamepad2.ps;
         boolean chamber = gamepad1.y;
         boolean basket = gamepad2.b;
         boolean transfer = gamepad2.a;
         boolean submersible = gamepad2.x;
         boolean dropoff = gamepad2.y;
+        boolean pickupFail = gamepad2.right_bumper;
 
 
         if (chamber && !pChamber && autoStep_d == 0) {
@@ -244,11 +258,13 @@ public class WorldsOPMode_SAMPLE extends OpMode {
                             intake.clawTarget = Values.CLAW_OPENED;
                             intake.turretTarget = Values.INTURRET_INIT;
                             intake.pivotTarget = Values.INPIVOT_SUB;
-                            intake.rotateTarget = Values.INROTATE_SUB;
+                            intake.rotateTarget = 1;
                             intake.slidesTarget = Values.HSLIDES_SUB;
 
                             setAutoStep_i(2);
                         }
+                        wristStore = intake.wristTarget;
+                        turretStore = intake.turretTarget;
                         break;
                     case 2:
                         if (submersible && !pSubmersible) {
@@ -265,9 +281,29 @@ public class WorldsOPMode_SAMPLE extends OpMode {
                             intake.turretTarget = Values.INTURRET_INIT;
                             intake.pivotTarget = Values.INPIVOT_SUB + 0.1;
                             intake.rotateTarget = Values.INROTATE_SUB - 0.2;
+                            setAutoStep_i(4);
+                        }
+                        if (pickupFail && !pPickupFail) {
+                            intake.clawTarget = Values.CLAW_OPENED;
+                            intake.pivotTarget = Values.INPIVOT_SUB;
+                            intake.rotateTarget = 1;
+                            setAutoStep_i(2);
+                        }
+                        break;
+                    case 4:
+                        if (transfer && !pTransfer) {
+                            setAutoStep_i(1);
+                            autoProcess_i = "transfer";
+                        }
 
-                            setAutoStep_i(0);
-                            autoProcess_i = "none";
+                        if (pickupFail && !pPickupFail) {
+                            intake.wristTarget = wristStore;
+                            intake.turretTarget = turretStore;
+
+                            intake.clawTarget = Values.CLAW_OPENED;
+                            intake.pivotTarget = Values.INPIVOT_SUB;
+                            intake.rotateTarget = 1;
+                            setAutoStep_i(2);
                         }
                         break;
                 }
@@ -450,6 +486,7 @@ public class WorldsOPMode_SAMPLE extends OpMode {
         pSubmersible = submersible;
         pDropoff = dropoff;
         pHome = home;
+        pPickupFail = pickupFail;
 
         outake.telemetry();
         intake.telemetry();

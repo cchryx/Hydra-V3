@@ -11,34 +11,36 @@ public class Values {
     public static double OUTPIVOT_MAX = 0.97;
     public static double OUTPIVOT_OFFSET = 0.03;
     public static double OUTPIVOT_INCR = 0.03;
-    public static double OUTPIVOT_INIT = 0.02;
-    public static double OUTPIVOT_GRAB = 0;
-    public static double OUTPIVOT_HCHAM = 0.82;
-    public static double OUTPIVOT_HCHAM_S = 0.9;
+    public static double OUTPIVOT_INIT = 0;
+    public static double OUTPIVOT_GRAB = 0.02;
+    public static double OUTPIVOT_HCHAM = 0.77;
+    public static double OUTPIVOT_HCHAM_S = 0.88;
     public static double OUTPIVOT_HBASK = 0.4;
-    public static double OUTPIVOT_TRANSFER = 0.55;
+    public static double OUTPIVOT_TRANSFER = 0.575;
 
 
     // ROTATE
     public static double OUTROTATE_MIN = 0;
     public static double OUTROTATE_MAX = 1;
     public static double OUTROTATE_INIT = 0;
-    public static double OUTROTATE_GRAB = 0.2;
-    public static double OUTROTATE_HCHAM = 0.8;
+    public static double OUTROTATE_GRAB = 0.166;
+    public static double OUTROTATE_HCHAM = 0.73;
+    public static double OUTROTATE_HCHAM_S = 0.56;
     public static double OUTROTATE_HBASK = 0.9;
     public static double OUTROTATE_TRANSFER = 0.12;
 
     // WRIST
     public static double OUTWRIST_MIN = 0;
-    public static double OUTWRIST_MAX = 1;
-    public static double OUTWRIST_INIT = 0.45;
-    public static double OUTWRIST_GRAB = 0.45;
+    public static double OUTWRIST_MAX = 0.97;
+    public static double OUTWRIST_INIT = 0.13;
+    public static double OUTWRIST_GRAB = 0.13;
 
     // SLIDES
     public static int OUTSLIDES_MIN = 0;
     public static int OUTSLIDES_MAX = 900;
-    public static int OUTSLIDES_GRAB = 85;
+    public static int OUTSLIDES_GRAB = 80;
     public static int OUTSLIDES_HCHAM = 450;
+    public static int OUTSLIDES_HCHAM_S = 220;
 
 
     ////////////
@@ -56,7 +58,7 @@ public class Values {
     public static double INPIVOT_INIT = 0.9;
     public static double INPIVOT_MIN = 0.26;
     public static double INPIVOT_MAX = 0.9;
-    public static double INPIVOT_SUB = 0.59;
+    public static double INPIVOT_SUB = 0.61;
     public static double INPIVOT_SUB_G = 0.55;
     public static double INPIVOT_TRANSFER = 0.9;
     public static double INPIVOT_INCR = 0.008;

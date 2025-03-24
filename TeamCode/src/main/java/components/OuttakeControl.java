@@ -69,7 +69,7 @@ public class OuttakeControl {
         OUTPIVOT_R.setDirection(Servo.Direction.REVERSE);
         OUTPIVOT_L.setPosition(pivotTarget + Values.OUTPIVOT_OFFSET);
         OUTPIVOT_R.setPosition(pivotTarget);
-        OUTROTATE.setPosition(rotateTarget);
+        OUTROTATE.setPosition(0.166);
         OUTWRIST.setPosition(wristTarget);
         OUTCLAW.setPosition(clawTarget);
 

@@ -83,7 +83,7 @@ public class IntakeControl {
 
 
         if(gamepad2.left_bumper) {
-            throttle = 0.2;
+            throttle = 0.3;
         } else {
             throttle = 1;
         }

@@ -43,8 +43,10 @@ public class Sample_Optimized extends OpMode {
     /** Start Pose of our robot */
     private final Pose startPose = new Pose(9, 111, Math.toRadians(0));
 
-    private double sideSample = 0.8;
-    private Path scorePreload, grabPreset1, scorePreset1, grabPreset2, scorePreset2, grabPreset3, scorePreset3, park;
+    private double beforePIckupTime = 1.5;
+
+    private double sideSample = 0.72;
+    private Path scorePreload, grabPreset1, grabPreset11, scorePreset1, grabPreset2, grabPreset22, scorePreset2, grabPreset3, grabPreset33, scorePreset3, park;
 
     public void buildPaths() {
 
@@ -53,80 +55,93 @@ public class Sample_Optimized extends OpMode {
                 new BezierCurve(
                         new Point(9.000, 111.000, Point.CARTESIAN),
                         new Point(13.275, 114.482, Point.CARTESIAN),
-                        new Point(11.714, 132.130, Point.CARTESIAN)
+                        new Point(14.217, 132.317, Point.CARTESIAN)
                 )
         );
         scorePreload.setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-45));
 
         grabPreset1 = new Path(
                 // Line 2
-                new BezierCurve(
-                        new Point(11.714, 132.130, Point.CARTESIAN),
-                        new Point(18.586, 123.384, Point.CARTESIAN),
-                        new Point(33.423, 123.696, Point.CARTESIAN)
+                new BezierLine(
+                        new Point(14.217, 132.317, Point.CARTESIAN),
+                        new Point(37.443, 109.372, Point.CARTESIAN)
                 )
         );
-        grabPreset1.setConstantHeadingInterpolation(Math.toRadians(0));
+        grabPreset1.setLinearHeadingInterpolation(Math.toRadians(-45), Math.toRadians(0));
+
+        grabPreset11 = new Path(
+                // Line 3
+                new BezierLine(
+                        new Point(37.443, 109.372, Point.CARTESIAN),
+                        new Point(36.500, 124.000, Point.CARTESIAN)
+                )
+        );
+        grabPreset11.setConstantHeadingInterpolation(Math.toRadians(0));
 
         scorePreset1 = new Path(
-                // Line 3
-                new BezierCurve(
-                        new Point(33.423, 123.696, Point.CARTESIAN),
-                        new Point(22.490, 123.384, Point.CARTESIAN),
-                        new Point(14.056, 133.692, Point.CARTESIAN)
+                // Line 4
+                new BezierLine(
+                        new Point(36.500, 124.000, Point.CARTESIAN),
+                        new Point(17.032, 139.214, Point.CARTESIAN)
                 )
         );
         scorePreset1.setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-45));
 
         grabPreset2 = new Path(
-                // Line 4
-                new BezierCurve(
-                        new Point(14.056, 133.692, Point.CARTESIAN),
-                        new Point(26.503, 127.797, Point.CARTESIAN),
-                        new Point(33.735, 133.692, Point.CARTESIAN)
+                // Line 5
+                new BezierLine(
+                        new Point(17.032, 139.214, Point.CARTESIAN),
+                        new Point(37.724, 119.507, Point.CARTESIAN)
                 )
         );
-        grabPreset2.setConstantHeadingInterpolation(Math.toRadians(0));
+        grabPreset2.setLinearHeadingInterpolation(Math.toRadians(-45), Math.toRadians(0));
+
+        grabPreset22 = new Path(
+                // Line 6
+                new BezierLine(
+                        new Point(37.724, 119.507, Point.CARTESIAN),
+                        new Point(37.865, 138.000, Point.CARTESIAN)
+                )
+        );
+        grabPreset22.setConstantHeadingInterpolation(Math.toRadians(0));
 
         scorePreset2 = new Path(
-                // Line 5
-                new BezierCurve(
-                        new Point(33.735, 133.692, Point.CARTESIAN),
-                        new Point(24.521, 132.911, Point.CARTESIAN),
-                        new Point(14.213, 133.692, Point.CARTESIAN)
+                // Line 7
+                new BezierLine(
+                        new Point(37.865, 138.000, Point.CARTESIAN),
+                        new Point(16.047, 139.214, Point.CARTESIAN)
                 )
         );
         scorePreset2.setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-45));
 
         grabPreset3 = new Path(
-                // Line 6
+                // Line 8
                 new BezierCurve(
-                        new Point(14.213, 133.692, Point.CARTESIAN),
-                        new Point(24.989, 140.408, Point.CARTESIAN),
-                        new Point(38.421, 138.377, Point.CARTESIAN)
+                        new Point(16.047, 139.214, Point.CARTESIAN),
+                        new Point(25.337, 136.540, Point.CARTESIAN),
+                        new Point(42.000, 140.700, Point.CARTESIAN)
                 )
         );
-        grabPreset3.setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(45));
+        grabPreset3.setLinearHeadingInterpolation(Math.toRadians(-45), Math.toRadians(45));
 
         scorePreset3 = new Path(
-                // Line 7
-                new BezierCurve(
-                        new Point(38.421, 138.377, Point.CARTESIAN),
-                        new Point(29.517, 127.671, Point.CARTESIAN),
-                        new Point(13.744, 133.380, Point.CARTESIAN)
+                // Line 9
+                new BezierLine(
+                        new Point(42.000, 140.700, Point.CARTESIAN),
+                        new Point(15.484, 138.933, Point.CARTESIAN)
                 )
         );
         scorePreset3.setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-45));
 
         park = new Path(
-                // Line 8
+                // Line 10
                 new BezierCurve(
-                        new Point(13.744, 133.380, Point.CARTESIAN),
-                        new Point(47.228, 110.589, Point.CARTESIAN),
-                        new Point(73.000, 90.000, Point.CARTESIAN)
+                        new Point(15.484, 138.933, Point.CARTESIAN),
+                        new Point(76.997, 141.889, Point.CARTESIAN),
+                        new Point(76.434, 97.830, Point.CARTESIAN)
                 )
         );
-        park.setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(-90));
+        park.setLinearHeadingInterpolation(Math.toRadians(-45), Math.toRadians(-90));
     }
 
 
@@ -160,6 +175,10 @@ public class Sample_Optimized extends OpMode {
 
     public void transfer3 (){
         outake.clawTarget = Values.CLAW_CLOSED;
+
+    }
+
+    public void transfer4 (){
         intake.clawTarget = Values.CLAW_OPENED;
     }
 
@@ -189,7 +208,7 @@ public class Sample_Optimized extends OpMode {
     }
 
     public void outtakeHome3() {
-        outake.slidesTarget = Values.OUTSLIDES_MIN - 20;
+        outake.slidesTarget = Values.OUTSLIDES_MIN - 10;
     }
 
     public void autonomousPathUpdate() {
@@ -213,7 +232,7 @@ public class Sample_Optimized extends OpMode {
             case 1:
                 switch (actionState) {
                     case 0:
-                        if(!follower.isBusy()) {
+                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 0.8) {
                             scoringClawOpen();
                             setActionState(1);
                         }
@@ -221,7 +240,7 @@ public class Sample_Optimized extends OpMode {
                     case 1:
                         if (actionTimer.getElapsedTimeSeconds() > 0.5) {
                             outtakeHome1();
-                            follower.followPath(grabPreset1);
+
                             intake();
                             setActionState(2);
                         }
@@ -235,7 +254,7 @@ public class Sample_Optimized extends OpMode {
                     case 3:
                         if (actionTimer.getElapsedTimeSeconds() > 0.5){
                             outtakeHome3();
-                            setActionState(0);
+                            setActionState(99);
                             setPathState(2);
                         }
                         break;
@@ -243,8 +262,23 @@ public class Sample_Optimized extends OpMode {
                 break;
             case 2:
                 switch (actionState) {
+                    case 99:
+                        follower.followPath(grabPreset1);
+                        setActionState(888);
+                        break;
+                    case 888:
+                        if (!follower.isBusy()) {
+                            setActionState(777);
+                        }
+                        break;
+                    case 777:
+                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                            follower.followPath(grabPreset11);
+                            setActionState(0);
+                        }
+                        break;
                     case 0:
-                        if(!follower.isBusy()) {
+                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > beforePIckupTime) {
                             intakeDown();
                             setActionState(1);
                         }
@@ -264,6 +298,12 @@ public class Sample_Optimized extends OpMode {
                     case 3:
                         if (actionTimer.getElapsedTimeSeconds() > 1) {
                             transfer3();
+                            setActionState(4);
+                        }
+                        break;
+                    case 4:
+                        if (actionTimer.getElapsedTimeSeconds() > 0.2) {
+                            transfer4();
                             follower.followPath(scorePreset1);
                             setActionState(0);
                             setPathState(3);
@@ -275,7 +315,7 @@ public class Sample_Optimized extends OpMode {
             case 3:
                 switch (actionState){
                     case 0:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                        if (actionTimer.getElapsedTimeSeconds() > 0.8) {
                             scoringUp();
                             setActionState(1);
                         }
@@ -292,7 +332,7 @@ public class Sample_Optimized extends OpMode {
             case 4:
                 switch (actionState) {
                     case 0:
-                        if(!follower.isBusy()) {
+                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 0.8) {
                             scoringClawOpen();
                             setActionState(1);
                         }
@@ -300,7 +340,6 @@ public class Sample_Optimized extends OpMode {
                     case 1:
                         if (actionTimer.getElapsedTimeSeconds() > 0.5) {
                             outtakeHome1();
-                            follower.followPath(grabPreset2);
                             intake();
                             setActionState(2);
                         }
@@ -314,7 +353,7 @@ public class Sample_Optimized extends OpMode {
                     case 3:
                         if (actionTimer.getElapsedTimeSeconds() > 0.5){
                             outtakeHome3();
-                            setActionState(0);
+                            setActionState(99);
                             setPathState(5);
                         }
                         break;
@@ -322,8 +361,23 @@ public class Sample_Optimized extends OpMode {
                 break;
             case 5:
                 switch (actionState) {
+                    case 99:
+                        follower.followPath(grabPreset2);
+                        setActionState(888);
+                        break;
+                    case 888:
+                        if (!follower.isBusy()) {
+                            setActionState(777);
+                        }
+                        break;
+                    case 777:
+                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                            follower.followPath(grabPreset22);
+                            setActionState(0);
+                        }
+                        break;
                     case 0:
-                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 1) {
+                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > beforePIckupTime) {
                             intakeDown();
                             setActionState(1);
                         }
@@ -343,6 +397,12 @@ public class Sample_Optimized extends OpMode {
                     case 3:
                         if (actionTimer.getElapsedTimeSeconds() > 1) {
                             transfer3();
+                            setActionState(4);
+                        }
+                        break;
+                    case 4:
+                        if (actionTimer.getElapsedTimeSeconds() > 0.2) {
+                            transfer4();
                             follower.followPath(scorePreset2);
                             setActionState(0);
                             setPathState(6);
@@ -354,7 +414,7 @@ public class Sample_Optimized extends OpMode {
             case 6:
                 switch (actionState){
                     case 0:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                        if (actionTimer.getElapsedTimeSeconds() > 0.8) {
                             scoringUp();
                             setActionState(1);
                         }
@@ -371,7 +431,7 @@ public class Sample_Optimized extends OpMode {
             case 7:
                 switch (actionState) {
                     case 0:
-                        if(!follower.isBusy()) {
+                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 0.8) {
                             scoringClawOpen();
                             setActionState(1);
                         }
@@ -379,7 +439,7 @@ public class Sample_Optimized extends OpMode {
                     case 1:
                         if (actionTimer.getElapsedTimeSeconds() > 0.5) {
                             outtakeHome1();
-                            follower.followPath(grabPreset3);
+
                             intake.clawTarget = Values.CLAW_OPENED;
                             intake.pivotTarget = Values.INPIVOT_SUB;
                             intake.rotateTarget = Values.INROTATE_SUB;
@@ -396,7 +456,7 @@ public class Sample_Optimized extends OpMode {
                     case 3:
                         if (actionTimer.getElapsedTimeSeconds() > 0.5){
                             outtakeHome3();
-                            setActionState(0);
+                            setActionState(99);
                             setPathState(8);
                         }
                         break;
@@ -405,8 +465,12 @@ public class Sample_Optimized extends OpMode {
 
             case 8:
                 switch (actionState) {
+                    case 99:
+                        follower.followPath(grabPreset3);
+                        setActionState(0);
+                        break;
                     case 0:
-                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 1) {
+                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 1.7) {
                             intake.clawTarget = Values.CLAW_OPENED;
                             intake.pivotTarget = Values.INPIVOT_SUB_G;
                             intake.rotateTarget = Values.INROTATE_SUB_G;
@@ -420,6 +484,13 @@ public class Sample_Optimized extends OpMode {
                             outake.rotateTarget = Values.OUTROTATE_TRANSFER;
                             outake.clawTarget = Values.CLAW_OPENED;
                             outake.pivotTarget = Values.OUTPIVOT_TRANSFER;
+                            setActionState(100);
+                        }
+                        break;
+                    case 100:
+                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                            intake.turretTarget = 0.2;
+                            follower.followPath(scorePreset3);
                             setActionState(2);
                         }
                         break;
@@ -430,9 +501,14 @@ public class Sample_Optimized extends OpMode {
                         }
                         break;
                     case 3:
-                        if (actionTimer.getElapsedTimeSeconds() > 1) {
+                        if (actionTimer.getElapsedTimeSeconds() > 0.4) {
                             transfer3();
-                            follower.followPath(scorePreset3);
+                            setActionState(4);
+                        }
+                        break;
+                    case 4:
+                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                            transfer4();
                             setActionState(0);
                             setPathState(9);
                         }
@@ -442,7 +518,7 @@ public class Sample_Optimized extends OpMode {
             case 9:
                 switch (actionState){
                     case 0:
-                        if (actionTimer.getElapsedTimeSeconds() > 0.5) {
+                        if (actionTimer.getElapsedTimeSeconds() > 0.8) {
                             scoringUp();
                             setActionState(1);
                         }
@@ -459,7 +535,7 @@ public class Sample_Optimized extends OpMode {
             case 10:
                 switch (actionState) {
                     case 0:
-                        if(!follower.isBusy()) {
+                        if(!follower.isBusy() && actionTimer.getElapsedTimeSeconds() > 0.8) {
                             scoringClawOpen();
                             setActionState(1);
                         }
@@ -467,7 +543,7 @@ public class Sample_Optimized extends OpMode {
                     case 1:
                         if (actionTimer.getElapsedTimeSeconds() > 0.5) {
                             outtakeHome1();
-//                            follower.followPath(park);
+                            follower.followPath(park);
                             intake();
                             setActionState(2);
                         }

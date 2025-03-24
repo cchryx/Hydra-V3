@@ -47,7 +47,8 @@ public class Specimen_4 extends OpMode {
 
     public double waitPickup = 0.25;
 
-    private Path scorePreload, pushPreset1, pushPreset2, pushPreset3, align1, align2, align3, align4, scorePreset1, grabPreset2, scorePreset2, grabPreset3, scorePreset3, grabPreset4, scorePreset4, park;
+    public double afterScore = 0.2;
+    private Path scorePreload, scorePush, pushPreset1, pushPreset2, pushPreset3, align1, align2, align3, align4, scorePreset1, grabPreset2, scorePreset2, grabPreset3, scorePreset3, grabPreset4, scorePreset4, park;
     private PathChain pushPresets;
 
     public void buildPaths() {
@@ -56,8 +57,8 @@ public class Specimen_4 extends OpMode {
                 // Line 1
                 new BezierCurve(
                         new Point(9.000, 64.000, Point.CARTESIAN),
-                        new Point(13.232, 73.196, Point.CARTESIAN),
-                        new Point(40.540, 77.138, Point.CARTESIAN)
+                        new Point(14.217, 70.522, Point.CARTESIAN),
+                        new Point(46.000, 73.000, Point.CARTESIAN)
                 )
         );
         scorePreload.setConstantHeadingInterpolation(Math.toRadians(0));
@@ -66,179 +67,151 @@ public class Specimen_4 extends OpMode {
                 .addPath(
                         // Line 2
                         new BezierCurve(
-                                new Point(40.540, 77.138, Point.CARTESIAN),
-                                new Point(24.774, 42.370, Point.CARTESIAN),
-                                new Point(47.155, 32.094, Point.CARTESIAN)
+                                new Point(46.000, 73.000, Point.CARTESIAN),
+                                new Point(22.381, 48.985, Point.CARTESIAN),
+                                new Point(37.302, 34.487, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 3
                         new BezierCurve(
-                                new Point(47.155, 32.094, Point.CARTESIAN),
-                                new Point(56.023, 33.783, Point.CARTESIAN),
-                                new Point(71.226, 23.648, Point.CARTESIAN)
+                                new Point(37.302, 34.487, Point.CARTESIAN),
+                                new Point(67.988, 33.079, Point.CARTESIAN),
+                                new Point(67.566, 28.012, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 4
                         new BezierLine(
-                                new Point(71.226, 23.648, Point.CARTESIAN),
-                                new Point(33.000, 24.000, Point.CARTESIAN)
+                                new Point(67.566, 28.012, Point.CARTESIAN),
+                                new Point(25.900, 27.730, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 5
                         new BezierCurve(
-                                new Point(33.000, 24.000, Point.CARTESIAN),
-                                new Point(61.513, 30.968, Point.CARTESIAN),
-                                new Point(71.226, 21.255, Point.CARTESIAN)
+                                new Point(25.900, 27.730, Point.CARTESIAN),
+                                new Point(67.707, 32.375, Point.CARTESIAN),
+                                new Point(68.129, 21.396, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 6
                         new BezierLine(
-                                new Point(71.226, 21.255, Point.CARTESIAN),
-                                new Point(30.264, 20.270, Point.CARTESIAN)
+                                new Point(68.129, 21.396, Point.CARTESIAN),
+                                new Point(46.733, 21.959, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .addPath(
                         // Line 7
                         new BezierCurve(
-                                new Point(30.264, 20.270, Point.CARTESIAN),
-                                new Point(67.566, 28.152, Point.CARTESIAN),
-                                new Point(73.196, 19.144, Point.CARTESIAN)
-                        )
-                )
-                .setConstantHeadingInterpolation(Math.toRadians(0))
-                .addPath(
-                        // Line 8
-                        new BezierCurve(
-                                new Point(73.196, 19.144, Point.CARTESIAN),
-                                new Point(17.032, 15.906, Point.CARTESIAN),
-                                new Point(29.560, 31.812, Point.CARTESIAN),
-                                new Point(16.891, 47.015, Point.CARTESIAN)
+                                new Point(46.733, 21.959, Point.CARTESIAN),
+                                new Point(16.328, 20.974, Point.CARTESIAN),
+                                new Point(28.716, 36.598, Point.CARTESIAN),
+                                new Point(18.721, 39.554, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
 
         align1 = new Path(
-                // Line 9
+                // Line 8
                 new BezierLine(
-                        new Point(16.891, 47.015, Point.CARTESIAN),
-                        new Point(10.276, 46.874, Point.CARTESIAN)
+                        new Point(18.721, 39.554, Point.CARTESIAN),
+                        new Point(8.164, 39.413, Point.CARTESIAN)
                 )
-
         );
         align1.setConstantHeadingInterpolation(Math.toRadians(0));
 
         scorePreset1 = new Path(
-                // Line 10
+                // Line 9
                 new BezierCurve(
-                        new Point(10.276, 46.874, Point.CARTESIAN),
+                        new Point(8.164, 39.413, Point.CARTESIAN),
                         new Point(28.293, 44.762, Point.CARTESIAN),
                         new Point(13.372, 82.205, Point.CARTESIAN),
-                        new Point(41.525, 105.572, Point.CARTESIAN)
+                        new Point(45.900, 92.800, Point.CARTESIAN)
                 )
         );
         scorePreset1.setConstantHeadingInterpolation(Math.toRadians(0));
 
         grabPreset2 = new Path(
-                // Line 11
+                // Line 10
                 new BezierCurve(
-                        new Point(41.525, 105.572, Point.CARTESIAN),
+                        new Point(45.900, 92.800, Point.CARTESIAN),
                         new Point(25.619, 81.079, Point.CARTESIAN),
                         new Point(33.783, 47.718, Point.CARTESIAN),
-                        new Point(16.328, 49.548, Point.CARTESIAN)
+                        new Point(15.906, 45.200, Point.CARTESIAN)
                 )
         );
-        grabPreset2.setConstantHeadingInterpolation(Math.toRadians(4));
+        grabPreset2.setConstantHeadingInterpolation(Math.toRadians(0));
 
         align2 = new Path(
-                // Line 12
+                // Line 11
                 new BezierLine(
-                        new Point(16.328, 49.548, Point.CARTESIAN),
-                        new Point(10.276, 49.548, Point.CARTESIAN)
+                        new Point(15.906, 45.200, Point.CARTESIAN),
+                        new Point(5.771, 45.100, Point.CARTESIAN)
                 )
         );
-        align2.setConstantHeadingInterpolation(Math.toRadians(4));
+        align2.setConstantHeadingInterpolation(Math.toRadians(0));
 
         scorePreset2 = new Path(
-                // Line 13
+                // Line 12
                 new BezierCurve(
-                        new Point(10.276, 49.548, Point.CARTESIAN),
+                        new Point(5.771, 45.100, Point.CARTESIAN),
                         new Point(28.856, 44.481, Point.CARTESIAN),
                         new Point(13.935, 82.768, Point.CARTESIAN),
-                        new Point(41.666, 103.601, Point.CARTESIAN)
+                        new Point(45.044, 95.800, Point.CARTESIAN)
                 )
+
         );
-        scorePreset2.setConstantHeadingInterpolation(Math.toRadians(5));
+        scorePreset2.setConstantHeadingInterpolation(Math.toRadians(0));
 
         grabPreset3 = new Path(
-                // Line 14
+                // Line 13
                 new BezierCurve(
-                        new Point(41.666, 103.601, Point.CARTESIAN),
+                        new Point(45.044, 95.800, Point.CARTESIAN),
                         new Point(24.915, 80.798, Point.CARTESIAN),
                         new Point(33.220, 47.859, Point.CARTESIAN),
-                        new Point(16.328, 49.830, Point.CARTESIAN)
+                        new Point(15.765, 46.800, Point.CARTESIAN)
                 )
         );
-        grabPreset3.setConstantHeadingInterpolation(Math.toRadians(5));
+        grabPreset3.setConstantHeadingInterpolation(Math.toRadians(0));
 
         align3 = new Path(
-                // Line 15
+                // Line 14
                 new BezierLine(
-                        new Point(16.328, 49.830, Point.CARTESIAN),
-                        new Point(10.276, 49.548, Point.CARTESIAN)
+                        new Point(15.765, 46.800, Point.CARTESIAN),
+                        new Point(4.223, 46.452, Point.CARTESIAN)
                 )
         );
-        align3.setConstantHeadingInterpolation(Math.toRadians(7));
+        align3.setConstantHeadingInterpolation(Math.toRadians(0));
 
         scorePreset3 = new Path(
-                // Line 16
+                // Line 15
                 new BezierCurve(
-                        new Point(10.276, 49.548, Point.CARTESIAN),
+                        new Point(4.223, 46.452, Point.CARTESIAN),
                         new Point(28.716, 44.622, Point.CARTESIAN),
                         new Point(13.232, 82.065, Point.CARTESIAN),
-                        new Point(41.384, 101.490, Point.CARTESIAN)
+                        new Point(47.700, 95.100, Point.CARTESIAN)
                 )
         );
-        scorePreset3.setConstantHeadingInterpolation(Math.toRadians(7));
+        scorePreset3.setConstantHeadingInterpolation(Math.toRadians(0));
 
         grabPreset4 = new Path(
-                // Line 17
+                // Line 16
                 new BezierCurve(
-                        new Point(41.384, 101.490, Point.CARTESIAN),
+                        new Point(47.700, 95.100, Point.CARTESIAN),
                         new Point(25.337, 81.220, Point.CARTESIAN),
-                        new Point(33.783, 47.437, Point.CARTESIAN),
-                        new Point(16.610, 50.111, Point.CARTESIAN)
+                        new Point(33.924, 47.296, Point.CARTESIAN),
+                        new Point(15.906, 49.830, Point.CARTESIAN)
                 )
         );
-        grabPreset4.setConstantHeadingInterpolation(Math.toRadians(7));
-
-//        align4 = new Path(
-//                // Line 18
-//                new BezierLine(
-//                        new Point(16.751, 49.548, Point.CARTESIAN),
-//                        new Point(9.009, 48.563, Point.CARTESIAN)
-//                )
-//        );
-//        align4.setConstantHeadingInterpolation(Math.toRadians(7));
-//
-//        park = new Path(
-//                // Line 19
-//                new BezierLine(
-//                        new Point(9.009, 48.563, Point.CARTESIAN),
-//                        new Point(14.639, 53.208, Point.CARTESIAN)
-//                )
-//        );
-//        park.setLinearHeadingInterpolation(Math.toRadians(7), Math.toRadians(45));
-
+        grabPreset4.setConstantHeadingInterpolation(Math.toRadians(0));
     }
 
     public int intakeOffset = 85;
@@ -251,14 +224,17 @@ public class Specimen_4 extends OpMode {
         outake.pivotTarget = Values.OUTPIVOT_HCHAM;
     }
     public void scoringDown() {
-        outake.pivotTarget = 0.85;
-        outake.slidesTarget = outake.slidesPosition - 100;
+        outake.pivotTarget = Values.OUTPIVOT_HCHAM_S;
+        outake.rotateTarget = Values.OUTROTATE_HCHAM_S;
+//        outake.slidesTarget = outake.slidesPosition - 130;
+        outake.slidesTarget = Values.OUTSLIDES_HCHAM_S;
+
     }
     public void scoringClawOpen() {
         outake.clawTarget = Values.CLAW_OPENED;
     }
     public void scoringHome() {
-        outake.slidesTarget = Values.OUTSLIDES_MIN + intakeOffset;
+        outake.slidesTarget = Values.OUTSLIDES_GRAB;
         outake.clawTarget = Values.CLAW_OPENED;
         outake.wristTarget = Values.OUTWRIST_GRAB;
         outake.rotateTarget = Values.OUTROTATE_GRAB;
@@ -268,8 +244,8 @@ public class Specimen_4 extends OpMode {
     public void intakeHome() {
         outake.clawTarget = Values.CLAW_OPENED;
         outake.wristTarget = Values.OUTWRIST_GRAB;
-        outake.rotateTarget = Values.OUTROTATE_GRAB - 0.2;
-        outake.pivotTarget = Values.OUTPIVOT_GRAB - 0.11;
+        outake.rotateTarget = Values.OUTROTATE_GRAB;
+        outake.pivotTarget = Values.OUTPIVOT_GRAB;
     }
 
     public void intakeUp1() {
@@ -278,7 +254,7 @@ public class Specimen_4 extends OpMode {
     }
 
     public void intakeUp2() {
-        outake.slidesTarget = Values.OUTSLIDES_GRAB + intakeOffset;
+        outake.slidesTarget = Values.OUTSLIDES_GRAB + 150;
     }
 
     public void intakeExtend() {
@@ -298,6 +274,9 @@ public class Specimen_4 extends OpMode {
                 setPathState(1);
                 break;
             case 1:
+                if (actionTimer.getElapsedTimeSeconds() > 100) {
+                    scoringUp();
+                }
                 if(!follower.isBusy()) {
                     switch (actionState) {
                         case 0:
@@ -305,14 +284,18 @@ public class Specimen_4 extends OpMode {
                             setActionState(1);
                             break;
                         case 1:
-                            if(actionTimer.getElapsedTimeSeconds() > 0) {
+                            if(actionTimer.getElapsedTimeSeconds() > 0.2) {
                                 scoringClawOpen();
                                 setActionState(2);
                             }
                             break;
                         case 2:
                             if(actionTimer.getElapsedTimeSeconds() > 0.2) {
-                                scoringHome();
+                                outake.slidesTarget = Values.OUTSLIDES_GRAB;
+                                outake.clawTarget = Values.CLAW_OPENED;
+                                outake.wristTarget = Values.OUTWRIST_GRAB;
+                                outake.rotateTarget = Values.OUTROTATE_GRAB;
+                                outake.pivotTarget = Values.OUTPIVOT_GRAB;
                                 setActionState(3);
                             }
                             break;
@@ -365,19 +348,24 @@ public class Specimen_4 extends OpMode {
                             setActionState(1);
                             break;
                         case 1:
-                            if(actionTimer.getElapsedTimeSeconds() > 0.1) {
+                            if(actionTimer.getElapsedTimeSeconds() > 0.4) {
                                 scoringClawOpen();
                                 setActionState(2);
                             }
                             break;
                         case 2:
                             if(actionTimer.getElapsedTimeSeconds() > 0.2) {
-                                scoringHome();
+                                //bruh
+                                outake.slidesTarget = Values.OUTSLIDES_GRAB+10;
+                                outake.clawTarget = Values.CLAW_OPENED;
+                                outake.wristTarget = Values.OUTWRIST_GRAB;
+                                outake.rotateTarget = Values.OUTROTATE_GRAB;
+                                outake.pivotTarget = Values.OUTPIVOT_GRAB;
                                 setActionState(3);
                             }
                             break;
                         case 3:
-                            if(actionTimer.getElapsedTimeSeconds() > 0.1) {
+                            if(actionTimer.getElapsedTimeSeconds() > afterScore) {
                                 setActionState(0);
                                 follower.followPath(grabPreset2);
                                 intakeHome();
@@ -424,19 +412,24 @@ public class Specimen_4 extends OpMode {
                         }
                         break;
                     case 1:
-                        if(actionTimer.getElapsedTimeSeconds() > 0) {
+                        if(actionTimer.getElapsedTimeSeconds() > 0.2) {
                             scoringClawOpen();
                             setActionState(2);
                         }
                         break;
                     case 2:
                         if(actionTimer.getElapsedTimeSeconds() > 0.2) {
-                            scoringHome();
+                            //bruh
+                            outake.slidesTarget = Values.OUTSLIDES_GRAB;
+                            outake.clawTarget = Values.CLAW_OPENED;
+                            outake.wristTarget = Values.OUTWRIST_GRAB;
+                            outake.rotateTarget = Values.OUTROTATE_GRAB;
+                            outake.pivotTarget = Values.OUTPIVOT_GRAB;
                             setActionState(3);
                         }
                         break;
                     case 3:
-                        if(actionTimer.getElapsedTimeSeconds() > 0.1) {
+                        if(actionTimer.getElapsedTimeSeconds() > afterScore) {
                             setActionState(0);
                             follower.followPath(grabPreset3);
                             intakeHome();
@@ -483,19 +476,24 @@ public class Specimen_4 extends OpMode {
                             }
                             break;
                         case 1:
-                            if(actionTimer.getElapsedTimeSeconds() > 0) {
+                            if(actionTimer.getElapsedTimeSeconds() > 0.6) {
                                 scoringClawOpen();
                                 setActionState(2);
                             }
                             break;
                         case 2:
                             if(actionTimer.getElapsedTimeSeconds() > 0.2) {
-                                scoringHome();
+                                //bruh
+                                outake.slidesTarget = 0;
+                                outake.clawTarget = Values.CLAW_OPENED;
+                                outake.wristTarget = Values.OUTWRIST_GRAB;
+                                outake.rotateTarget = Values.OUTROTATE_GRAB;
+                                outake.pivotTarget = Values.OUTPIVOT_GRAB;
                                 setActionState(3);
                             }
                             break;
                         case 3:
-                            if(actionTimer.getElapsedTimeSeconds() > 0.1) {
+                            if(actionTimer.getElapsedTimeSeconds() > afterScore) {
                                 setActionState(0);
                                 follower.followPath(grabPreset4);
                                 intakeHome();

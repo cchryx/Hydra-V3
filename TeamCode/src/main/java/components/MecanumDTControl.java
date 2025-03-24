@@ -49,14 +49,6 @@ public class MecanumDTControl {
         double FR_power = (y - x - rx) / denominator;
         double BR_power = (y + x - rx) / denominator;
 
-        // Throttle speed
-        if(gamepad1.right_trigger > 0) {
-            FR_power *= Math.min(1, 1.5 - gamepad1.right_trigger);
-            BR_power *= Math.min(1, 1.5 - gamepad1.right_trigger);
-            FL_power *= Math.min(1, 1.5 - gamepad1.right_trigger);
-            BL_power *= Math.min(1, 1.5 - gamepad1.right_trigger);
-        }
-
         // Set motor powers
         FR.setPower(FR_power);
         BR.setPower(BR_power);

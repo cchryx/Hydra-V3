@@ -39,17 +39,21 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
     boolean pTransfer = false;
     boolean pSubmersible = false;
     boolean pDropoff = false;
+    boolean pFailed = false;
+    boolean pPickupFail = false;
+    double wristStore;
+    double turretStore;
+    double pivotStore;
+    double rotateStore;
 
 
     @Override
     public void init() {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-
         // Initialize hardware
         hardwareInitializer = new HardwareInitializer();
         hardwareInitializer.initHardware(hardwareMap);
-
 
         FR = hardwareInitializer.getMotor("FR");
         FL = hardwareInitializer.getMotor("FL");
@@ -122,14 +126,23 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
         outake.move();
         intake.move(autoProcess_i);
 
+        if (gamepad1.dpad_up) {
+            outake.slidesTarget += 10;
+        }
+
+        if (gamepad1.dpad_down) {
+            outake.slidesTarget -= 10;
+        }
 
         // Auto Stuff
-        boolean home = gamepad1.ps || gamepad2.ps;
-        boolean chamber = gamepad1.y;
+        boolean home = gamepad1.x || gamepad2.ps;
+        boolean chamber = gamepad1.right_bumper;
         boolean basket = gamepad2.b;
         boolean transfer = gamepad2.a;
         boolean submersible = gamepad2.x;
         boolean dropoff = gamepad2.y;
+        boolean failed = gamepad1.a;
+        boolean pickupFail = gamepad2.right_bumper;
 
 
 
@@ -228,8 +241,6 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
                     case 2:
                         if (dropoff && !pDropoff) {
                             intake.clawTarget = Values.CLAW_OPENED;
-
-
                             setAutoStep_i(20001);
                         }
                         break;
@@ -253,10 +264,6 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
                             intake.pivotTarget = Values.INPIVOT_TRANSFER;
                             intake.turretTarget = Values.INTURRET_INIT;
                             intake.slidesTarget = Values.HSLIDES_MIN;
-
-
-
-
                             setAutoStep_i(2);
                         }
                         break;
@@ -276,7 +283,7 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
                             intake.clawTarget = Values.CLAW_OPENED;
                             intake.turretTarget = Values.INTURRET_INIT;
                             intake.pivotTarget = Values.INPIVOT_SUB;
-                            intake.rotateTarget = Values.INROTATE_SUB;
+                            intake.rotateTarget = 1;
                             intake.slidesTarget = Values.HSLIDES_SUB;
 
 
@@ -317,12 +324,10 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
                         outake.wristTarget = Values.OUTWRIST_INIT;
                         outake.rotateTarget = Values.OUTROTATE_INIT;
                         outake.pivotTarget = Values.OUTPIVOT_INIT;
-
-
                         setAutoStep_d(10001);
                         break;
                     case 10001:
-                        if(autoTime.milliseconds() > 300 && outake.slidesPosition <= 0) {
+                        if(autoTime.milliseconds() > 80 && outake.slidesPosition <= 0) {
                             VSLIDES_L.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                             VSLIDES_L.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -336,7 +341,7 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
                         }
 
 
-                        if(autoTime.milliseconds() > 350) {
+                        if(autoTime.milliseconds() > 85) {
                             setAutoStep_d(10002);
                         }
 
@@ -406,7 +411,10 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
                         }
                         break;
                     case 3:
-                        if (chamber && !pChamber && autoTime.milliseconds() > 100) {
+//                        outake.wristTarget = Values.OUTWRIST_GRAB;
+//                        outake.rotateTarget = Values.OUTROTATE_GRAB;
+//                        outake.pivotTarget = Values.OUTPIVOT_GRAB;
+                        if (chamber && !pChamber && autoTime.milliseconds() > 0) {
                             outake.slidesTarget = Values.OUTSLIDES_HCHAM;
                             outake.wristTarget = Values.OUTWRIST_MAX;
                             outake.rotateTarget = Values.OUTROTATE_HCHAM;
@@ -414,10 +422,18 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
                             setAutoStep_d(4);
                         }
                         break;
+                    case 123:
+                            outake.slidesTarget = Values.OUTSLIDES_HCHAM;
+                            outake.wristTarget = Values.OUTWRIST_MAX;
+                            outake.rotateTarget = Values.OUTROTATE_HCHAM;
+                            outake.pivotTarget = Values.OUTPIVOT_HCHAM;
+                            setAutoStep_d(4);
+                        break;
                     case 4:
-                        if (chamber && !pChamber && autoTime.milliseconds() > 100) {
+                        if (chamber && !pChamber && autoTime.milliseconds() > 0) {
                             outake.pivotTarget = Values.OUTPIVOT_HCHAM_S;
-                            outake.slidesTarget = outake.slidesPosition - 60;
+                            outake.rotateTarget = Values.OUTROTATE_HCHAM_S;
+                            outake.slidesTarget = Values.OUTSLIDES_HCHAM_S;
                             setAutoStep_d(5);
                         }
                         break;
@@ -425,6 +441,9 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
                         if (chamber && !pChamber) {
                             outake.clawTarget = Values.CLAW_OPENED;
                             setAutoStep_d(50001);
+                        }
+                        if (failed && !pFailed) {
+                            setAutoStep_d(123);
                         }
                         break;
                     case 50001:
@@ -489,6 +508,8 @@ public class WorldsOPMode_SPECIMEN extends OpMode {
         pSubmersible = submersible;
         pDropoff = dropoff;
         pHome = home;
+        pPickupFail = pickupFail;
+        pFailed = failed;
 
 
         outake.telemetry();
